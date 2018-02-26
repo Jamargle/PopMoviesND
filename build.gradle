@@ -35,6 +35,9 @@ ext {
 
     // App dependencies
     supportLibraryVersion = '27.0.2'
+    // RxJava
+    rxJavaVersion = '2.1.10'
+    rxAndroidVersion = '2.0.2'
 
     junitVersion = '4.12'
     runnerVersion = '1.0.1'
