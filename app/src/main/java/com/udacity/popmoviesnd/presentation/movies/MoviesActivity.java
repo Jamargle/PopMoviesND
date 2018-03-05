@@ -1,6 +1,7 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
@@ -16,6 +17,7 @@ public class MoviesActivity extends BaseActivity
         setContentView(R.layout.activity_movies);
     }
 
+    @NonNull
     @Override
     protected MoviesPresenter getPresenter() {
         return presenter;
