@@ -2,28 +2,28 @@ package com.udacity.popmoviesnd.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.View;
 
-public abstract class BaseActivity<P extends BasePresenter<BasePresenter.BaseView>>
-        extends AppCompatActivity
+public abstract class BaseFragment<P extends BasePresenter<BasePresenter.BaseView>>
+        extends Fragment
         implements BasePresenter.BaseView {
 
     protected abstract @NonNull P getPresenter();
 
     @Override
-    public void onCreate(
-            @Nullable final Bundle savedInstanceState,
-            @Nullable final PersistableBundle persistentState) {
+    public void onViewCreated(
+            @NonNull final View view,
+            @Nullable final Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState, persistentState);
+        super.onViewCreated(view, savedInstanceState);
         getPresenter().attachView(this);
     }
 
     @Override
-    protected void onActivityResult(
+    public void onActivityResult(
             final int requestCode,
             final int resultCode,
             final Intent data) {
@@ -33,7 +33,7 @@ public abstract class BaseActivity<P extends BasePresenter<BasePresenter.BaseVie
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         getPresenter().detachView();
     }
