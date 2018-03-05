@@ -7,9 +7,10 @@ import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
 
 public class MoviesActivity extends BaseActivity
-        implements MoviesPresenter.MoviesView {
+        implements MovieListFragment.Callback,
+        MoviesActivityPresenter.MoviesActivityView {
 
-    private MoviesPresenter presenter;
+    private MoviesActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class MoviesActivity extends BaseActivity
 
     @NonNull
     @Override
-    protected MoviesPresenter getPresenter() {
+    protected MoviesActivityPresenter getPresenter() {
         return presenter;
     }
 
