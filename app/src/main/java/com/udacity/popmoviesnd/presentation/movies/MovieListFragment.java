@@ -1,7 +1,6 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -137,7 +136,5 @@ public class MovieListFragment extends BaseFragment
 
     public interface Callback {
 
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

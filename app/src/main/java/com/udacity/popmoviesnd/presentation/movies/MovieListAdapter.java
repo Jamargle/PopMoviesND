@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.udacity.popmoviesnd.BuildConfig;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
 
@@ -86,8 +87,16 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
         }
 
         public void bindMovie(final Movie movie) {
+            final String thumbnailPosterPath = movie.getThumbnailPosterPath();
+            final String completePath;
+            if (thumbnailPosterPath.contains(BuildConfig.BASE_IMAGE_URL)) {
+                completePath = thumbnailPosterPath;
+            } else {
+                completePath = BuildConfig.BASE_IMAGE_URL + BuildConfig.IMAGE_MEDIUM_SIZE_URL + thumbnailPosterPath;
+            }
+
             Glide.with(context)
-                    .load(movie.getThumbnailPosterPath())
+                    .load(completePath)
                     .into(moviePoster);
         }
     }
