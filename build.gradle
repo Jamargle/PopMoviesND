@@ -34,7 +34,10 @@ ext {
     buildToolsVersion = '27.0.3'
 
     // App dependencies
-    supportLibraryVersion = '27.0.2'
+    supportLibraryVersion = '27.1.0'
+    butterknifeVersion = '8.8.1'
+    glideVersion = '4.6.1'
+    retrofitVersion = '2.3.0'
     // RxJava
     rxJavaVersion = '2.1.10'
     rxAndroidVersion = '2.0.2'

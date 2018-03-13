@@ -1,14 +1,16 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
 
 public class MoviesActivity extends BaseActivity
-        implements MoviesPresenter.MoviesView {
+        implements MovieListFragment.Callback,
+        MoviesActivityPresenter.MoviesActivityView {
 
-    private MoviesPresenter presenter;
+    private MoviesActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +18,9 @@ public class MoviesActivity extends BaseActivity
         setContentView(R.layout.activity_movies);
     }
 
+    @NonNull
     @Override
-    protected MoviesPresenter getPresenter() {
+    protected MoviesActivityPresenter getPresenter() {
         return presenter;
     }
 
