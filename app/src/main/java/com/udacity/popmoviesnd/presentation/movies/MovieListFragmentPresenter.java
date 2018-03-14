@@ -21,6 +21,8 @@ public interface MovieListFragmentPresenter extends BasePresenter<MovieListFragm
 
         void updateMoviesToShow(List<Movie> movies);
 
+        void showNoMoviesToShowScreen();
+
     }
 
 }

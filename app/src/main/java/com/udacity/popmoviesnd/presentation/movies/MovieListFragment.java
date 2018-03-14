@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.udacity.popmoviesnd.R;
+import com.udacity.popmoviesnd.app.dependencies.PresenterFactory;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.BaseFragment;
 
@@ -32,11 +33,6 @@ public class MovieListFragment extends BaseFragment
     private MovieListFragmentPresenter presenter;
     private Callback callback;
     private MovieListAdapter adapter;
-
-
-    public MovieListFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onAttach(final Context context) {
@@ -64,6 +60,12 @@ public class MovieListFragment extends BaseFragment
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        presenter.refreshMovies();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         callback = null;
@@ -73,7 +75,7 @@ public class MovieListFragment extends BaseFragment
     @Override
     protected MovieListFragmentPresenter getPresenter() {
         if (presenter == null) {
-            presenter = new MovieListFragmentPresenterImp();
+            presenter = PresenterFactory.makeMovieListFragmentPresenter();
         }
         return presenter;
     }
@@ -114,7 +116,16 @@ public class MovieListFragment extends BaseFragment
 
     @Override
     public void updateMoviesToShow(final List<Movie> movies) {
-        adapter.changeDataSet(movies);
+        if (movieRecyclerView.getVisibility() == View.GONE) {
+            movieRecyclerView.setVisibility(View.VISIBLE);
+        }
+        adapter.updateMovies(movies);
+    }
+
+    @Override
+    public void showNoMoviesToShowScreen() {
+        movieRecyclerView.setVisibility(View.GONE);
+        emptyListView.setVisibility(View.VISIBLE);
     }
 
     private void initAdapter() {
@@ -134,7 +145,8 @@ public class MovieListFragment extends BaseFragment
 
     }
 
-    public interface Callback {
+    interface Callback {
 
     }
+
 }
