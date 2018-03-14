@@ -116,7 +116,16 @@ public class MovieListFragment extends BaseFragment
 
     @Override
     public void updateMoviesToShow(final List<Movie> movies) {
+        if (movieRecyclerView.getVisibility() == View.GONE) {
+            movieRecyclerView.setVisibility(View.VISIBLE);
+        }
         adapter.updateMovies(movies);
+    }
+
+    @Override
+    public void showNoMoviesToShowScreen() {
+        movieRecyclerView.setVisibility(View.GONE);
+        emptyListView.setVisibility(View.VISIBLE);
     }
 
     private void initAdapter() {

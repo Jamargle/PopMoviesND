@@ -28,7 +28,7 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
             public void processOnNext(final List<Movie> movies) {
                 super.processOnNext(movies);
                 if (movies.isEmpty()) {
-                    getView().showLoadMoviesError();
+                    getView().showNoMoviesToShowScreen();
                 } else {
                     getView().updateMoviesToShow(movies);
                 }
