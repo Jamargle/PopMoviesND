@@ -25,7 +25,7 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
     private OnMovieClickListener listener;
     private Context context;
 
-    public MovieListAdapter(
+    MovieListAdapter(
             final Context context,
             final List<Movie> movieList,
             final OnMovieClickListener listener) {
@@ -58,7 +58,7 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
         return movieDataset.size();
     }
 
-    public void changeDataSet(final List<Movie> newDataSet) {
+    void updateMovies(final List<Movie> newDataSet) {
         movieDataset.clear();
         movieDataset.addAll(newDataSet);
 
@@ -71,7 +71,7 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
 
     }
 
-    public final class MovieViewHolder extends RecyclerView.ViewHolder {
+    final class MovieViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.movie_image_container)
         ImageView moviePoster;
@@ -82,11 +82,11 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
         }
 
         @OnClick(R.id.movie_image_container)
-        public void onClick() {
+        void onClick() {
             listener.onClick(getAdapterPosition());
         }
 
-        public void bindMovie(final Movie movie) {
+        void bindMovie(final Movie movie) {
             final String thumbnailPosterPath = movie.getThumbnailPosterPath();
             final String completePath;
             if (thumbnailPosterPath.contains(BuildConfig.BASE_IMAGE_URL)) {

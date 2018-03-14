@@ -1,6 +1,7 @@
 package com.udacity.popmoviesnd.domain.interactor;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -12,8 +13,11 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * By convention each UseCase implementation will return the result using a {@link DisposableObserver}
  * that will execute its job in a background thread and will post the result in the UI thread.
+ *
+ * @param <I> Input params to build the use case
+ * @param <O> Output from the use case observable
  */
-public abstract class UseCase<T> {
+public abstract class UseCase<I, O> {
 
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;
@@ -31,20 +35,20 @@ public abstract class UseCase<T> {
     /**
      * Builds an {@link Observable} which will be used when executing the current {@link UseCase}.
      */
-    protected abstract Observable<T> buildUseCaseObservable(T params);
+    protected abstract Observable<O> buildUseCaseObservable(@Nullable I params);
 
     /**
      * Executes the current use case.
      *
+     * @param params   Parameters (Optional) used to build/execute this use case.
      * @param observer {@link DisposableObserver} which will be listening to the observable build
      *                 by {@link #buildUseCaseObservable(Object)} ()} method.
-     * @param params   Parameters (Optional) used to build/execute this use case.
      */
     public void execute(
-            final @NonNull DisposableObserver<T> observer,
-            final T params) {
+            @Nullable final I params,
+            @NonNull final DisposableObserver<O> observer) {
 
-        final Observable<T> observable = buildUseCaseObservable(params)
+        final Observable<O> observable = buildUseCaseObservable(params)
                 .subscribeOn(Schedulers.from(threadExecutor))
                 .observeOn(postExecutionThread.getScheduler());
         disposables.add(observable.subscribeWith(observer));

@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import retrofit2.Call;
 
 public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
@@ -23,14 +26,19 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
     }
 
     @Override
-    public List<Movie> obtainMovies() {
-        Call<MoviePage> call = apiService.getListOfPopularMovies(BuildConfig.MOVIES_API_KEY);
-        addMoviesToList(call, Sorting.POPULAR);
+    public Observable<List<Movie>> obtainMovies() {
+        return Observable.create(new ObservableOnSubscribe<List<Movie>>() {
+            @Override
+            public void subscribe(final ObservableEmitter<List<Movie>> emitter) throws Exception {
+                Call<MoviePage> call = apiService.getListOfPopularMovies(BuildConfig.MOVIES_API_KEY);
+                addMoviesToList(call, Sorting.POPULAR);
 
-        call = apiService.getListOfTopRatedMovies(BuildConfig.MOVIES_API_KEY);
-        addMoviesToList(call, Sorting.TOP_RATED);
+                call = apiService.getListOfTopRatedMovies(BuildConfig.MOVIES_API_KEY);
+                addMoviesToList(call, Sorting.TOP_RATED);
 
-        return movies;
+                emitter.onNext(movies);
+            }
+        });
     }
 
     private void addMoviesToList(
