@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieListFragment extends BaseFragment
+public final class MovieListFragment extends BaseFragment
         implements MovieListFragmentPresenter.MovieListFragmentView,
         MovieListAdapter.OnMovieClickListener {
 
@@ -128,6 +128,11 @@ public class MovieListFragment extends BaseFragment
         emptyListView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onClick(final Movie movie) {
+        startMovieDetailsActivity(movie);
+    }
+
     private void initAdapter() {
         adapter = new MovieListAdapter(getContext(), new ArrayList<Movie>(), this);
     }
@@ -140,12 +145,13 @@ public class MovieListFragment extends BaseFragment
         movieRecyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onClick(final int position) {
-
+    private void startMovieDetailsActivity(final Movie movie) {
+        callback.onItemSelected(movie);
     }
 
     interface Callback {
+
+        void onItemSelected(Movie movie);
 
     }
 

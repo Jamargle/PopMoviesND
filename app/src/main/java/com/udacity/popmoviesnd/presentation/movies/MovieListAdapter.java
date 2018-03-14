@@ -67,7 +67,7 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
 
     public interface OnMovieClickListener {
 
-        void onClick(int position);
+        void onClick(Movie movie);
 
     }
 
@@ -83,7 +83,7 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
 
         @OnClick(R.id.movie_image_container)
         void onClick() {
-            listener.onClick(getAdapterPosition());
+            listener.onClick(movieDataset.get(getAdapterPosition()));
         }
 
         void bindMovie(final Movie movie) {

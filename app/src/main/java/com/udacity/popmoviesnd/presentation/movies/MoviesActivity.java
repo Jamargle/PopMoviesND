@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.udacity.popmoviesnd.R;
+import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
 
-public class MoviesActivity extends BaseActivity
+public final class MoviesActivity extends BaseActivity
         implements MovieListFragment.Callback,
         MoviesActivityPresenter.MoviesActivityView {
 
@@ -25,6 +26,11 @@ public class MoviesActivity extends BaseActivity
             presenter = new MoviesActivityPresenterImp();
         }
         return presenter;
+    }
+
+    @Override
+    public void onItemSelected(final Movie movie) {
+        // TODO Implement when detail activity is ready
     }
 
 }
