@@ -30,6 +30,7 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
         return Observable.create(new ObservableOnSubscribe<List<Movie>>() {
             @Override
             public void subscribe(final ObservableEmitter<List<Movie>> emitter) throws Exception {
+                movies.clear();
                 Call<MoviePage> call = apiService.getListOfPopularMovies(BuildConfig.MOVIES_API_KEY);
                 addMoviesToList(call, Sorting.POPULAR);
 

@@ -21,6 +21,9 @@ public class MoviesActivity extends BaseActivity
     @NonNull
     @Override
     protected MoviesActivityPresenter getPresenter() {
+        if (presenter == null) {
+            presenter = new MoviesActivityPresenterImp();
+        }
         return presenter;
     }
 
