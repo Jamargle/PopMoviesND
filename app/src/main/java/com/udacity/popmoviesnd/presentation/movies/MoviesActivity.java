@@ -1,13 +1,14 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
+import com.udacity.popmoviesnd.presentation.settings.SettingsActivity;
 
 public class MoviesActivity extends BaseActivity
         implements MovieListFragment.Callback,
@@ -47,8 +48,8 @@ public class MoviesActivity extends BaseActivity
     }
 
     private void startSettingsActivity() {
-        // TODO Add settings activity
-        Toast.makeText(this, "Go to Settings", Toast.LENGTH_SHORT).show();
+        final Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
 }
