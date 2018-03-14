@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">PopMoviesND</string>
-    <string name="movie_list_image">This is a movie poster</string>
+
+    <!-- Movies list activity -->
+    <string name="movie_list_image">This is a poster of a movie</string>
     <string name="movie_list_is_empty">There are no movies available to show</string>
+    <string name="action_settings">Settings</string>
 </resources>
