@@ -23,6 +23,14 @@ public abstract class BaseFragment<P extends BasePresenter<BasePresenter.BaseVie
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (getPresenter().getView() == null) {
+            getPresenter().attachView(this);
+        }
+    }
+
+    @Override
     public void onActivityResult(
             final int requestCode,
             final int resultCode,
