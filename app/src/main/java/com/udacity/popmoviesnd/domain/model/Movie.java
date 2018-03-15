@@ -1,24 +1,21 @@
 package com.udacity.popmoviesnd.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Class representing a Movie
  */
-public final class Movie {
+public final class Movie implements Parcelable {
 
-    @SerializedName("id")
-    private long movieApiId;
-    @SerializedName("original_title")
-    private String originalTitle;
-    @SerializedName("overview")
-    private String overview;
-    @SerializedName("poster_path")
-    private String thumbnailPosterPath;
-    @SerializedName("vote_average")
-    private float voteAverage;
-    @SerializedName("release_date")
-    private String releaseDate;
+    @SerializedName("id") private long movieApiId;
+    @SerializedName("original_title") private String originalTitle;
+    @SerializedName("overview") private String overview;
+    @SerializedName("poster_path") private String thumbnailPosterPath;
+    @SerializedName("vote_average") private float voteAverage;
+    @SerializedName("release_date") private String releaseDate;
     private @Sorting int orderType;
 
     Movie(final Builder builder) {
@@ -47,6 +44,47 @@ public final class Movie {
     public void setOrderType(@Sorting final int orderType) {
         this.orderType = orderType;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    protected Movie(final Parcel in) {
+        movieApiId = in.readLong();
+        originalTitle = in.readString();
+        overview = in.readString();
+        thumbnailPosterPath = in.readString();
+        voteAverage = in.readFloat();
+        releaseDate = in.readString();
+        orderType = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(
+            final Parcel dest,
+            final int flags) {
+
+        dest.writeLong(movieApiId);
+        dest.writeString(originalTitle);
+        dest.writeString(overview);
+        dest.writeString(thumbnailPosterPath);
+        dest.writeFloat(voteAverage);
+        dest.writeString(releaseDate);
+        dest.writeInt(orderType);
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(final Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(final int size) {
+            return new Movie[size];
+        }
+    };
 
     public static class Builder {
 

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
+import com.udacity.popmoviesnd.presentation.details.DetailActivity;
 import com.udacity.popmoviesnd.presentation.settings.SettingsActivity;
 
 public final class MoviesActivity extends BaseActivity
@@ -50,7 +51,8 @@ public final class MoviesActivity extends BaseActivity
 
     @Override
     public void onItemSelected(final Movie movie) {
-        // TODO Implement when detail activity is ready
+        final Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent.putExtras(DetailActivity.newBundle(movie)));
     }
 
     private void startSettingsActivity() {
