@@ -15,4 +15,6 @@
     <string name="pref_sort_by_popular" translatable="false">popular_movies</string>
     <string name="pref_sort_by_rating" translatable="false">top_rated_movies</string>
 
+    <!-- Detail activity -->
+    <string name="poster_content_description">Poster of the movie</string>
 </resources>

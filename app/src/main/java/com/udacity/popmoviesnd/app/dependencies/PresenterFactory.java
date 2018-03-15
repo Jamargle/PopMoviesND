@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.udacity.popmoviesnd.app.util.SharedPreferencesHandler;
 import com.udacity.popmoviesnd.app.util.StringProvider;
+import com.udacity.popmoviesnd.presentation.details.MovieDetailFragmentPresenter;
+import com.udacity.popmoviesnd.presentation.details.MovieDetailFragmentPresenterImp;
 import com.udacity.popmoviesnd.presentation.movies.MovieListFragmentPresenter;
 import com.udacity.popmoviesnd.presentation.movies.MovieListFragmentPresenterImp;
 
@@ -17,6 +19,7 @@ public abstract class PresenterFactory {
     private static SharedPreferencesHandler sharedPreferencesHandler;
     private static StringProvider stringProvider;
     private static MovieListFragmentPresenter movieListFragmentPresenterInstance;
+    private static MovieDetailFragmentPresenter movieDetailFragmentPresenterInstance;
 
     private PresenterFactory() {
 
@@ -30,6 +33,13 @@ public abstract class PresenterFactory {
                     UseCaseFactory.makeFetchMoviesUseCase());
         }
         return movieListFragmentPresenterInstance;
+    }
+
+    public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> contextWeakReference) {
+        if (movieDetailFragmentPresenterInstance == null) {
+            movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp();
+        }
+        return movieDetailFragmentPresenterInstance;
     }
 
     private static SharedPreferencesHandler getSharedPreferencesInstance(final WeakReference<Context> context) {
