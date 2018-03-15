@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PopMoviesND</string>
+
+    <!-- Movies list activity -->
+    <string name="movie_list_image">This is a poster of a movie</string>
+    <string name="movie_list_is_empty">There are no movies available to show</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Settings strings-->
+    <string name="pref_sorting_model_key" translatable="false">sorting_model_key</string>
+    <string name="pref_sort_by_popular" translatable="false">popular_movies</string>
+    <string name="pref_sort_by_rating" translatable="false">top_rated_movies</string>
+
 </resources>

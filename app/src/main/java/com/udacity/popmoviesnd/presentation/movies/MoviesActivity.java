@@ -1,14 +1,18 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
 
-public class MoviesActivity extends BaseActivity
-        implements MoviesPresenter.MoviesView {
+public final class MoviesActivity extends BaseActivity
+        implements MovieListFragment.Callback,
+        MoviesActivityPresenter.MoviesActivityView {
 
-    private MoviesPresenter presenter;
+    private MoviesActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +21,31 @@ public class MoviesActivity extends BaseActivity
     }
 
     @Override
-    protected MoviesPresenter getPresenter() {
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_movie_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (R.id.action_settings == item.getItemId()) {
+            startSettingsActivity();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @NonNull
+    @Override
+    protected MoviesActivityPresenter getPresenter() {
+        if (presenter == null) {
+            presenter = new MoviesActivityPresenterImp();
+        }
         return presenter;
+    }
+
+    private void startSettingsActivity() {
     }
 
 }

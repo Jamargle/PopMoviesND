@@ -26,8 +26,10 @@ public abstract class BasePresenterImpl<V extends BasePresenter.BaseView>
 
     @Override
     public void detachView() {
-        referenceView.clear();
-        referenceView = null;
+        if (getView() != null) {
+            referenceView.clear();
+            referenceView = null;
+        }
     }
 
 }
