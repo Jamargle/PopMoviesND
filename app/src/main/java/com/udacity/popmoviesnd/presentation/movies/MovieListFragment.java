@@ -108,12 +108,12 @@ public final class MovieListFragment extends BaseFragment
 
     @Override
     public void showLoadMoviesError() {
-
+        // TODO Finish showLoadMoviesError implementation
     }
 
     @Override
     public void hideMoviesError() {
-
+        // TODO Finish hideMoviesError implementation
     }
 
     @Override
@@ -131,7 +131,7 @@ public final class MovieListFragment extends BaseFragment
     }
 
     @Override
-    public void onClick(final Movie movie) {
+    public void onMoviePosterClicked(final Movie movie) {
         startMovieDetailsActivity(movie);
     }
 

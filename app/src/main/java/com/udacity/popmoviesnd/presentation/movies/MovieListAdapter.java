@@ -67,14 +67,13 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
 
     public interface OnMovieClickListener {
 
-        void onClick(Movie movie);
+        void onMoviePosterClicked(Movie movie);
 
     }
 
     final class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_image_container)
-        ImageView moviePoster;
+        @BindView(R.id.movie_image_container) ImageView moviePoster;
 
         MovieViewHolder(View itemView) {
             super(itemView);
@@ -83,7 +82,7 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
 
         @OnClick(R.id.movie_image_container)
         void onClick() {
-            listener.onClick(movieDataset.get(getAdapterPosition()));
+            listener.onMoviePosterClicked(movieDataset.get(getAdapterPosition()));
         }
 
         void bindMovie(final Movie movie) {
