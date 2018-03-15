@@ -18,7 +18,7 @@ public abstract class UseCaseFactory {
     private UseCaseFactory() {
     }
 
-    public static UseCase<Void, List<Movie>> makeFetchMoviesUseCase() {
+    public static UseCase<Integer, List<Movie>> makeFetchMoviesUseCase() {
         initThreadingInstances();
         return new FetchMoviesUseCase(
                 GatewayFactory.makeNetworkMovieGateway(),

@@ -1,11 +1,15 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.BaseActivity;
+import com.udacity.popmoviesnd.presentation.settings.SettingsActivity;
 
 public final class MoviesActivity extends BaseActivity
         implements MovieListFragment.Callback,
@@ -17,6 +21,22 @@ public final class MoviesActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_movie_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (R.id.action_settings == item.getItemId()) {
+            startSettingsActivity();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @NonNull
@@ -31,6 +51,11 @@ public final class MoviesActivity extends BaseActivity
     @Override
     public void onItemSelected(final Movie movie) {
         // TODO Implement when detail activity is ready
+    }
+
+    private void startSettingsActivity() {
+        final Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -16,6 +16,7 @@ import com.udacity.popmoviesnd.app.dependencies.PresenterFactory;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.BaseFragment;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,8 +75,9 @@ public final class MovieListFragment extends BaseFragment
     @NonNull
     @Override
     protected MovieListFragmentPresenter getPresenter() {
-        if (presenter == null) {
-            presenter = PresenterFactory.makeMovieListFragmentPresenter();
+        if (presenter == null && getActivity() != null) {
+            final WeakReference<Context> contextWeakReference = new WeakReference<>(getActivity().getApplicationContext());
+            presenter = PresenterFactory.makeMovieListFragmentPresenter(contextWeakReference);
         }
         return presenter;
     }

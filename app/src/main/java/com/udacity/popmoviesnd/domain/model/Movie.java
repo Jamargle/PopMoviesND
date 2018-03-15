@@ -23,8 +23,7 @@ public final class Movie {
         this.thumbnailPosterPath = thumbnailPosterPath;
     }
 
-    public @Sorting
-    int getOrderType() {
+    public @Sorting int getOrderType() {
         return orderType;
     }
 
