@@ -1,6 +1,7 @@
 package com.udacity.popmoviesnd.domain.repository;
 
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.Sorting;
 
 import java.util.List;
 
@@ -14,8 +15,9 @@ public interface NetworkMovieGateway {
     /**
      * Retrieve the list of Movies
      *
+     * @param criteria Sorting criteria to retrieve movies. It can be all, only most popular or only top rated
      * @return Observable with the List of Movies
      */
-    Observable<List<Movie>> obtainMovies();
+    Observable<List<Movie>> obtainMovies(@Sorting int criteria);
 
 }

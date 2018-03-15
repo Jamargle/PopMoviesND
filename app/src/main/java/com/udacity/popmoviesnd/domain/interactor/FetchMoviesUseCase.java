@@ -9,7 +9,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public final class FetchMoviesUseCase extends UseCase<Void, List<Movie>> {
+public final class FetchMoviesUseCase extends UseCase<Integer, List<Movie>> {
 
     private final NetworkMovieGateway movieNetworkGateway;
 
@@ -23,7 +23,12 @@ public final class FetchMoviesUseCase extends UseCase<Void, List<Movie>> {
     }
 
     @Override
-    protected Observable<List<Movie>> buildUseCaseObservable(@Nullable final Void params) {
-        return movieNetworkGateway.obtainMovies();
+    protected Observable<List<Movie>> buildUseCaseObservable(@Nullable final Integer params) {
+        if (params != null) {
+            return movieNetworkGateway.obtainMovies(params);
+        } else {
+            throw new RuntimeException();
+        }
     }
+
 }
