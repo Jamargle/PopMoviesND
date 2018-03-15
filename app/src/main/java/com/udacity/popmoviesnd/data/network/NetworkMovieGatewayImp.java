@@ -26,16 +26,20 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
     }
 
     @Override
-    public Observable<List<Movie>> obtainMovies() {
+    public Observable<List<Movie>> obtainMovies(@Sorting final int criteria) {
         return Observable.create(new ObservableOnSubscribe<List<Movie>>() {
             @Override
             public void subscribe(final ObservableEmitter<List<Movie>> emitter) throws Exception {
                 movies.clear();
-                Call<MoviePage> call = apiService.getListOfPopularMovies(BuildConfig.MOVIES_API_KEY);
-                addMoviesToList(call, Sorting.POPULAR);
+                if (Sorting.SHOW_ALL == criteria || Sorting.POPULAR == criteria) {
+                    final Call<MoviePage> call = apiService.getListOfPopularMovies(BuildConfig.MOVIES_API_KEY);
+                    addMoviesToList(call, Sorting.POPULAR);
+                }
 
-                call = apiService.getListOfTopRatedMovies(BuildConfig.MOVIES_API_KEY);
-                addMoviesToList(call, Sorting.TOP_RATED);
+                if (Sorting.SHOW_ALL == criteria || Sorting.TOP_RATED == criteria) {
+                    final Call<MoviePage> call = apiService.getListOfTopRatedMovies(BuildConfig.MOVIES_API_KEY);
+                    addMoviesToList(call, Sorting.TOP_RATED);
+                }
 
                 emitter.onNext(movies);
             }

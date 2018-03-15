@@ -9,7 +9,6 @@ import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.domain.model.Sorting;
 import com.udacity.popmoviesnd.presentation.BasePresenterImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class MovieListFragmentPresenterImp extends BasePresenterImpl<MovieListFragmentPresenter.MovieListFragmentView>
@@ -17,12 +16,12 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
 
     private final SharedPreferencesHandler sharedPreferencesHandler;
     private final StringProvider stringProvider;
-    private final UseCase<Void, List<Movie>> fetchMoviesUseCase;
+    private final UseCase<Integer, List<Movie>> fetchMoviesUseCase;
 
     public MovieListFragmentPresenterImp(
             final SharedPreferencesHandler sharedPreferencesHandler,
             final StringProvider stringProvider,
-            final UseCase<Void, List<Movie>> fetchMoviesUseCase) {
+            final UseCase<Integer, List<Movie>> fetchMoviesUseCase) {
 
         this.sharedPreferencesHandler = sharedPreferencesHandler;
         this.stringProvider = stringProvider;
@@ -35,7 +34,7 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
             getView().showLoading();
         }
 
-        fetchMoviesUseCase.execute(null, new DefaultObserver<List<Movie>>(getView()) {
+        fetchMoviesUseCase.execute(getMovieOrderSetting(), new DefaultObserver<List<Movie>>(getView()) {
 
             @Override
             public void processOnNext(final List<Movie> movies) {
@@ -43,7 +42,7 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
                 if (movies.isEmpty()) {
                     getView().showNoMoviesToShowScreen();
                 } else {
-                    getView().updateMoviesToShow(filterMoviesToShow(movies));
+                    getView().updateMoviesToShow(movies);
                 }
             }
 
@@ -54,19 +53,6 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
             }
 
         });
-    }
-
-    private List<Movie> filterMoviesToShow(final List<Movie> movies) {
-        final List<Movie> moviesToShow = new ArrayList<>();
-        final int movieOrderSetting = getMovieOrderSetting();
-
-        for (Movie movie : movies) {
-            if (movieOrderSetting == movie.getOrderType()) {
-                moviesToShow.add(movie);
-            }
-        }
-
-        return moviesToShow;
     }
 
     private @Sorting int getMovieOrderSetting() {
