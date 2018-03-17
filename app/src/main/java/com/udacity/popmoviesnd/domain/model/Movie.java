@@ -19,7 +19,6 @@ public final class Movie implements Parcelable {
     private @Sorting int orderType;
 
     Movie(final Builder builder) {
-        this.movieApiId = builder.movieDbId;
         this.movieApiId = builder.movieApiId;
         this.originalTitle = builder.originalTitle;
         this.overview = builder.overview;
@@ -29,12 +28,44 @@ public final class Movie implements Parcelable {
         this.orderType = builder.orderType;
     }
 
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(final String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(final String overview) {
+        this.overview = overview;
+    }
+
     public String getThumbnailPosterPath() {
         return thumbnailPosterPath;
     }
 
     public void setThumbnailPosterPath(final String thumbnailPosterPath) {
         this.thumbnailPosterPath = thumbnailPosterPath;
+    }
+
+    public float getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(final float voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(final String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public @Sorting int getOrderType() {
