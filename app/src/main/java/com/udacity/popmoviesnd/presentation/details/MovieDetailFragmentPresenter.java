@@ -5,9 +5,19 @@ import com.udacity.popmoviesnd.presentation.BasePresenter;
 
 public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailFragmentPresenter.MovieDetailFragmentView> {
 
-    void initMovieDetailViews(Movie movie);
+    void loadMovieDetails(Movie movie);
 
     interface MovieDetailFragmentView extends BasePresenter.BaseView {
+
+        void setTitle(String originalTitle);
+
+        void setOverview(String overview);
+
+        void setReleaseYear(String releaseDate);
+
+        void setVoteAverage(float voteAverage);
+
+        void setMovieImage(String posterPath);
 
     }
 

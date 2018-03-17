@@ -2,6 +2,7 @@ package com.udacity.popmoviesnd.presentation.details;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
@@ -31,6 +32,13 @@ public final class DetailActivity extends BaseActivity
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.movie_details_fragment);
+        ((MovieDetailFragment) fragment).setMovieToShow((Movie) getIntent().getParcelableExtra(MOVIE_TO_SHOW));
     }
 
     @NonNull
