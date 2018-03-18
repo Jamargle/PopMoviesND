@@ -2,6 +2,7 @@ package com.udacity.popmoviesnd.presentation.movies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,11 @@ public final class MoviesActivity extends BaseActivity
     public void onItemSelected(final Movie movie) {
         final Intent intent = new Intent(this, DetailActivity.class);
         startActivity(intent.putExtras(DetailActivity.newBundle(movie)));
+    }
+
+    @Override
+    public void openDeviceSettings() {
+        startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
     }
 
     private void startSettingsActivity() {

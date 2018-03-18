@@ -9,6 +9,8 @@ public interface MovieListFragmentPresenter extends BasePresenter<MovieListFragm
 
     void refreshMovies();
 
+    void onNoNetworkConnection();
+
     interface MovieListFragmentView extends BasePresenter.BaseView {
 
         void showLoading();
@@ -22,6 +24,8 @@ public interface MovieListFragmentPresenter extends BasePresenter<MovieListFragm
         void updateMoviesToShow(List<Movie> movies);
 
         void showNoMoviesToShowScreen();
+
+        void showNoInternetConnectionMessage();
 
     }
 

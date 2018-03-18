@@ -1,8 +1,12 @@
 package com.udacity.popmoviesnd.presentation.movies;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -63,7 +67,11 @@ public final class MovieListFragment extends BaseFragment
     @Override
     public void onStart() {
         super.onStart();
-        presenter.refreshMovies();
+        if (hasNetworkConnection()) {
+            presenter.refreshMovies();
+        } else {
+            presenter.onNoNetworkConnection();
+        }
     }
 
     @Override
@@ -131,6 +139,35 @@ public final class MovieListFragment extends BaseFragment
     }
 
     @Override
+    public void showNoInternetConnectionMessage() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.no_internet_title)
+                .setMessage(R.string.enable_internet_message)
+                .setPositiveButton(R.string.go_to_settings, new DialogInterface.OnClickListener() {
+                    public void onClick(
+                            final DialogInterface dialog,
+                            final int which) {
+
+                        openDeviceSettings();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(
+                            final DialogInterface dialog,
+                            final int which) {
+
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void openDeviceSettings() {
+        callback.openDeviceSettings();
+    }
+
+    @Override
     public void onMoviePosterClicked(final Movie movie) {
         startMovieDetailsActivity(movie);
     }
@@ -147,6 +184,17 @@ public final class MovieListFragment extends BaseFragment
         movieRecyclerView.setAdapter(adapter);
     }
 
+    private boolean hasNetworkConnection() {
+        if (getActivity() != null) {
+            final ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager != null) {
+                final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                return networkInfo != null && networkInfo.isConnectedOrConnecting();
+            }
+        }
+        return false;
+    }
+
     private void startMovieDetailsActivity(final Movie movie) {
         callback.onItemSelected(movie);
     }
@@ -154,6 +202,8 @@ public final class MovieListFragment extends BaseFragment
     interface Callback {
 
         void onItemSelected(Movie movie);
+
+        void openDeviceSettings();
 
     }
 
