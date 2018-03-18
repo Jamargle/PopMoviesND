@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">PopMoviesND</string>
+
+    <!-- Movies list activity -->
+    <string name="movie_list_image">This is a poster of a movie</string>
+    <string name="movie_list_is_empty">There are no movies available to show</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_internet_title">There is no Internet connection</string>
+    <string name="enable_internet_message">Please, enable Internet to see the movies information.</string>
+    <string name="go_to_settings">Go to Settings</string>
+
+    <!-- Settings strings-->
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_pick_sorter_way">Pick a way to sort</string>
+    <string name="label_sort_by_popular">Most popular</string>
+    <string name="label_sort_by_rating">Top rated</string>
+    <string name="pref_sorting_model_key" translatable="false">sorting_model_key</string>
+    <string name="pref_sort_by_popular" translatable="false">popular_movies</string>
+    <string name="pref_sort_by_rating" translatable="false">top_rated_movies</string>
+
+    <!-- Detail activity -->
+    <string name="poster_content_description">Poster of the movie</string>
 </resources>
