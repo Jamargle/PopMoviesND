@@ -55,6 +55,13 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
         });
     }
 
+    @Override
+    public void onNoNetworkConnection() {
+        if (getView() != null) {
+            getView().showNoInternetConnectionMessage();
+        }
+    }
+
     private @Sorting int getMovieOrderSetting() {
         final String wayToOrder = sharedPreferencesHandler.getWayToOrderMovies(
                 stringProvider.getString(R.string.pref_sorting_model_key),
