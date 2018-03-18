@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.app.dependencies.PresenterFactory;
 import com.udacity.popmoviesnd.domain.model.Movie;
@@ -97,8 +97,10 @@ public final class MovieDetailFragment extends BaseFragment
     @Override
     public void setMovieImage(final String posterPath) {
         if (getActivity() != null) {
-            Glide.with(getActivity())
+            Picasso.with(getActivity())
                     .load(posterPath)
+                    .placeholder(R.drawable.ic_movie_placeholder)
+                    .error(R.drawable.ic_error)
                     .into(moviePoster);
         }
     }
