@@ -90,8 +90,8 @@ public final class MovieDetailFragment extends BaseFragment
     }
 
     @Override
-    public void setVoteAverage(final float voteAverage) {
-        voteAverageView.setText(String.valueOf(voteAverage));
+    public void setVoteAverage(final String voteAverage) {
+        voteAverageView.setText(voteAverage);
     }
 
     @Override

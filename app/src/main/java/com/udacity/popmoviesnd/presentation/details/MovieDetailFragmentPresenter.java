@@ -15,7 +15,7 @@ public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailF
 
         void setReleaseYear(String releaseDate);
 
-        void setVoteAverage(float voteAverage);
+        void setVoteAverage(String voteAverage);
 
         void setMovieImage(String posterPath);
 
