@@ -12,21 +12,29 @@ public final class MovieDetailFragmentPresenterImp extends BasePresenterImpl<Mov
     public void loadMovieDetails(final Movie movie) {
         final MovieDetailFragmentView view = getView();
         if (view != null) {
-            view.setTitle(movie.getOriginalTitle());
-            view.setOverview(movie.getOverview());
+            if (movie.getOriginalTitle() != null) {
+                view.setTitle(movie.getOriginalTitle());
+            }
+            if (movie.getOverview() != null) {
+                view.setOverview(movie.getOverview());
+            }
             view.setReleaseYear(getReleaseYear(movie.getReleaseDate()));
             view.setVoteAverage(getVoteAverage(movie.getVoteAverage()));
-            final String completePath;
-            if (movie.getThumbnailPosterPath().contains(BuildConfig.BASE_IMAGE_URL)) {
-                completePath = movie.getThumbnailPosterPath();
-            } else {
-                completePath = BuildConfig.BASE_IMAGE_URL + BuildConfig.IMAGE_MEDIUM_SIZE_URL + movie.getThumbnailPosterPath();
+
+            if (movie.getThumbnailPosterPath() != null) {
+                if (movie.getThumbnailPosterPath().contains(BuildConfig.BASE_IMAGE_URL)) {
+                    view.setMovieImage(movie.getThumbnailPosterPath());
+                } else {
+                    view.setMovieImage(BuildConfig.BASE_IMAGE_URL + BuildConfig.IMAGE_MEDIUM_SIZE_URL + movie.getThumbnailPosterPath());
+                }
             }
-            view.setMovieImage(completePath);
         }
     }
 
     private String getReleaseYear(final String releaseDate) {
+        if (releaseDate == null) {
+            return "";
+        }
         final Integer year = DateUtils.getYear(releaseDate);
         if (year != null) {
             return String.valueOf(year);

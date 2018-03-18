@@ -1,5 +1,7 @@
 package com.udacity.popmoviesnd.app.util;
 
+import android.support.annotation.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,7 +21,7 @@ public abstract class DateUtils {
      * @param date String to transform in the API format 'yyyy-MM-dd'
      * @return A integer object containing the representation of the year in the given date or null if date is not parsable with the API_FORMAT
      */
-    public static Integer getYear(final String date) {
+    public static Integer getYear(@NonNull final String date) {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(API_FORMAT, Locale.getDefault());
         try {
             final Date completeDate = simpleDateFormat.parse(date);
