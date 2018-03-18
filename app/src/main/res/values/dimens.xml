@@ -10,6 +10,6 @@
 
     <!-- Text sizes -->
     <dimen name="movie_details_title">40sp</dimen>
-    <dimen name="details_poster_width">100dp</dimen>
+    <dimen name="details_poster_width">120dp</dimen>
 
 </resources>

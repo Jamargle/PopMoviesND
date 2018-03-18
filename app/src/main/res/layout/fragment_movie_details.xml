@@ -46,7 +46,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/margin_big"
                     android:orientation="vertical">
 
                     <TextView
@@ -61,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        tools:text="6.7/10"/>
+                        tools:text="6.7 / 10"/>
 
                 </LinearLayout>
 
