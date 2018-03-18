@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.udacity.popmoviesnd.BuildConfig;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
@@ -94,8 +94,10 @@ public final class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapte
                 completePath = BuildConfig.BASE_IMAGE_URL + BuildConfig.IMAGE_MEDIUM_SIZE_URL + thumbnailPosterPath;
             }
 
-            Glide.with(context)
-                    .load(completePath)
+            Picasso.with(context)
+                    .load(completePath).fit()
+                    .placeholder(R.drawable.ic_movie_placeholder)
+                    .error(R.drawable.ic_error)
                     .into(moviePoster);
         }
     }

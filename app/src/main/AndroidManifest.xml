@@ -23,6 +23,14 @@
         </activity>
 
         <activity
+            android:name=".presentation.details.DetailActivity"
+            android:parentActivityName=".presentation.movies.MoviesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.movies.MoviesActivity"/>
+        </activity>
+
+        <activity
             android:name=".presentation.settings.SettingsActivity"
             android:parentActivityName=".presentation.movies.MoviesActivity">
             <meta-data
