@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +61,14 @@ public final class MovieListFragment extends BaseFragment
         setHasOptionsMenu(true);
 
         initAdapter();
-        initRecyclerView();
         return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        initRecyclerView();
         if (hasNetworkConnection()) {
             presenter.refreshMovies();
         } else {
@@ -140,6 +142,9 @@ public final class MovieListFragment extends BaseFragment
 
     @Override
     public void showNoInternetConnectionMessage() {
+        if (getActivity() == null) {
+            return;
+        }
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.no_internet_title)
                 .setMessage(R.string.enable_internet_message)
@@ -178,10 +183,26 @@ public final class MovieListFragment extends BaseFragment
 
     private void initRecyclerView() {
         movieRecyclerView.setHasFixedSize(true);
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), calculateBestNumberOfColumns());
         movieRecyclerView.setLayoutManager(gridLayoutManager);
 
         movieRecyclerView.setAdapter(adapter);
+    }
+
+    private int calculateBestNumberOfColumns() {
+        final int defaultNumberOfColumns = 3;
+        if (getActivity() != null) {
+            final DisplayMetrics displayMetrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            final int widthDivider = (int) getResources().getDimension(R.dimen.poster_width);
+            final int screenWidth = displayMetrics.widthPixels;
+            final int numberOfColumns = screenWidth / widthDivider;
+            if (numberOfColumns < defaultNumberOfColumns) {
+                return defaultNumberOfColumns;
+            }
+            return numberOfColumns;
+        }
+        return defaultNumberOfColumns;
     }
 
     private boolean hasNetworkConnection() {
