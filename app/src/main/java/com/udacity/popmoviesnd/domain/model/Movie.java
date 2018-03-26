@@ -17,6 +17,7 @@ public final class Movie implements Parcelable {
     @SerializedName("vote_average") private float voteAverage;
     @SerializedName("release_date") private String releaseDate;
     private @Sorting int orderType;
+    private boolean favorite;
 
     Movie(final Builder builder) {
         this.movieApiId = builder.movieApiId;
@@ -26,6 +27,7 @@ public final class Movie implements Parcelable {
         this.voteAverage = builder.voteAverage;
         this.releaseDate = builder.releaseDate;
         this.orderType = builder.orderType;
+        this.favorite = builder.favorite;
     }
 
     public String getOriginalTitle() {
@@ -76,6 +78,14 @@ public final class Movie implements Parcelable {
         this.orderType = orderType;
     }
 
+    public boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(final boolean favoriteValue) {
+        favorite = favoriteValue;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -89,6 +99,7 @@ public final class Movie implements Parcelable {
         voteAverage = in.readFloat();
         releaseDate = in.readString();
         orderType = in.readInt();
+        favorite = in.readInt() == 1;
     }
 
     @Override
@@ -103,6 +114,7 @@ public final class Movie implements Parcelable {
         dest.writeFloat(voteAverage);
         dest.writeString(releaseDate);
         dest.writeInt(orderType);
+        dest.writeInt(favorite ? 1 : 0);
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -127,6 +139,7 @@ public final class Movie implements Parcelable {
         private float voteAverage;
         private String releaseDate;
         private @Sorting int orderType;
+        private boolean favorite;
 
         public Builder movieDbId(final long movieDbId) {
             this.movieDbId = movieDbId;
@@ -165,6 +178,11 @@ public final class Movie implements Parcelable {
 
         public Builder orderType(final @Sorting int orderType) {
             this.orderType = orderType;
+            return this;
+        }
+
+        public Builder favorite(final boolean favorite) {
+            this.favorite = favorite;
             return this;
         }
 
