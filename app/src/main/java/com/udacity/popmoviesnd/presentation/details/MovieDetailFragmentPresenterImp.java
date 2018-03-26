@@ -8,8 +8,11 @@ import com.udacity.popmoviesnd.presentation.BasePresenterImpl;
 public final class MovieDetailFragmentPresenterImp extends BasePresenterImpl<MovieDetailFragmentPresenter.MovieDetailFragmentView>
         implements MovieDetailFragmentPresenter {
 
+    private Movie movie;
+
     @Override
     public void loadMovieDetails(final Movie movie) {
+        this.movie = movie;
         final MovieDetailFragmentView view = getView();
         if (view != null) {
             if (movie.getOriginalTitle() != null) {
@@ -28,6 +31,15 @@ public final class MovieDetailFragmentPresenterImp extends BasePresenterImpl<Mov
                     view.setMovieImage(BuildConfig.BASE_IMAGE_URL + BuildConfig.IMAGE_MEDIUM_SIZE_URL + movie.getThumbnailPosterPath());
                 }
             }
+            view.setFavoriteButtonText(movie.getFavorite());
+        }
+    }
+
+    @Override
+    public void onChangeFavoriteState() {
+        movie.setFavorite(!movie.getFavorite());
+        if (getView() != null) {
+            getView().setFavoriteButtonText(movie.getFavorite());
         }
     }
 
