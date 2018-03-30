@@ -71,6 +71,8 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
             return Sorting.POPULAR;
         } else if (wayToOrder.equals(stringProvider.getString(R.string.pref_sort_by_rating))) {
             return Sorting.TOP_RATED;
+        } else if (wayToOrder.equals(stringProvider.getString(R.string.pref_sort_by_favorite))) {
+            return Sorting.FAVORITES;
         } else {
             return Sorting.POPULAR;
         }

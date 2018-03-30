@@ -90,18 +90,29 @@ public final class LocalMovieGatewayImp implements LocalMovieGateway {
     private List<Movie> obtainMoviesFromDb(@Sorting final int criteria) {
         final List<Movie> movieList = new ArrayList<>();
         final Cursor cursor;
-        if (Sorting.POPULAR == criteria) {
-            cursor = contentResolver.query(
-                    MovieEntry.buildPopularMoviesUri(),
-                    null, null, null, null);
-        } else if (Sorting.TOP_RATED == criteria) {
-            cursor = contentResolver.query(
-                    MovieEntry.buildTopRatedMoviesUri(),
-                    null, null, null, null);
-        } else {
-            cursor = contentResolver.query(
-                    MovieEntry.CONTENT_URI,
-                    null, null, null, null);
+        switch (criteria) {
+            case Sorting.POPULAR:
+                cursor = contentResolver.query(
+                        MovieEntry.buildPopularMoviesUri(),
+                        null, null, null, null);
+                break;
+            case Sorting.TOP_RATED:
+                cursor = contentResolver.query(
+                        MovieEntry.buildTopRatedMoviesUri(),
+                        null, null, null, null);
+                break;
+            case Sorting.FAVORITES:
+                cursor = contentResolver.query(
+                        MovieEntry.buildFavoriteMoviesUri(),
+                        null, null, null, null);
+                break;
+            case Sorting.SHOW_ALL:
+                // Same behavior as default
+            default:
+                cursor = contentResolver.query(
+                        MovieEntry.CONTENT_URI,
+                        null, null, null, null);
+                break;
         }
         if (cursor != null) {
             movieList.addAll(MovieMapper.mapToListOfMovies(cursor));

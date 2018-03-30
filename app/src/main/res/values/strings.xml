@@ -14,9 +14,11 @@
     <string name="title_pick_sorter_way">Pick a way to sort</string>
     <string name="label_sort_by_popular">Most popular</string>
     <string name="label_sort_by_rating">Top rated</string>
+    <string name="label_sort_by_favorite">Favorites</string>
     <string name="pref_sorting_model_key" translatable="false">sorting_model_key</string>
     <string name="pref_sort_by_popular" translatable="false">popular_movies</string>
     <string name="pref_sort_by_rating" translatable="false">top_rated_movies</string>
+    <string name="pref_sort_by_favorite" translatable="false">favorite_movies</string>
 
     <!-- Detail activity -->
     <string name="poster_content_description">Poster of the movie</string>
