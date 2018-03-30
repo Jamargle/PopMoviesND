@@ -42,7 +42,7 @@ public final class MovieMapper {
         return contentValuesList;
     }
 
-    public static Movie mapToMovie(final ContentValues movieValues) {
+    private static Movie mapToMovie(final ContentValues movieValues) {
         if (movieValues != null) {
             return new Movie.Builder()
                     .movieDbId(movieValues.getAsLong(MovieEntry._ID))
@@ -73,17 +73,17 @@ public final class MovieMapper {
         final List<Movie> movieList = new ArrayList<>();
         if (moviesCursor != null && moviesCursor.moveToFirst()) {
             Movie movie;
-            while (moviesCursor.moveToNext()) {
+            do {
                 movie = mapToMovie(moviesCursor);
                 if (movie != null) {
                     movieList.add(movie);
                 }
-            }
+            } while (moviesCursor.moveToNext());
         }
         return movieList;
     }
 
-    public static Movie mapToMovie(final Cursor movieCursor) {
+    private static Movie mapToMovie(final Cursor movieCursor) {
         if (movieCursor != null) {
             return new Movie.Builder()
                     .movieDbId(movieCursor.getLong(movieCursor.getColumnIndex(MovieEntry._ID)))
