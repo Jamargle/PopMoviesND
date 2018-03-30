@@ -30,6 +30,10 @@ public final class Movie implements Parcelable {
         this.favorite = builder.favorite;
     }
 
+    public long getMovieApiId() {
+        return movieApiId;
+    }
+
     public String getOriginalTitle() {
         return originalTitle;
     }
