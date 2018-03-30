@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.udacity.popmoviesnd"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.udacity.popmoviesnd">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -38,6 +38,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.movies.MoviesActivity"/>
         </activity>
+
+        <provider
+            android:name=".data.local.MovieProvider"
+            android:authorities="com.udacity.popmoviesnd.app"
+            android:exported="false"/>
 
     </application>
 

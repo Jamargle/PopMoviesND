@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public final class MovieDetailFragment extends BaseFragment
         implements MovieDetailFragmentPresenter.MovieDetailFragmentView {
@@ -28,6 +30,7 @@ public final class MovieDetailFragment extends BaseFragment
     @BindView(R.id.overview) TextView overviewView;
     @BindView(R.id.release_year) TextView releaseYearView;
     @BindView(R.id.vote_average) TextView voteAverageView;
+    @BindView(R.id.mark_as_favorite_button) Button favoriteButton;
 
     private MovieDetailFragmentPresenter presenter;
     private Callback callback;
@@ -74,6 +77,11 @@ public final class MovieDetailFragment extends BaseFragment
         presenter.loadMovieDetails(movie);
     }
 
+    @OnClick(R.id.mark_as_favorite_button)
+    void changeFavoriteState() {
+        presenter.onChangeFavoriteState();
+    }
+
     @Override
     public void setTitle(final String originalTitle) {
         titleView.setText(originalTitle);
@@ -105,7 +113,21 @@ public final class MovieDetailFragment extends BaseFragment
         }
     }
 
+    @Override
+    public void setFavoriteButtonText(final boolean isFavorite) {
+        favoriteButton.setText(isFavorite
+                ? getString(R.string.unmark_for_non_favorite)
+                : getString(R.string.mark_as_favorite));
+    }
+
+    @Override
+    public void onUpdateMovieError() {
+        callback.onUpdateMovieError();
+    }
+
     interface Callback {
+
+        void onUpdateMovieError();
 
     }
 

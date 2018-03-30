@@ -30,14 +30,16 @@ public abstract class PresenterFactory {
             movieListFragmentPresenterInstance = new MovieListFragmentPresenterImp(
                     getSharedPreferencesInstance(context),
                     getStringProviderInstance(context),
-                    UseCaseFactory.makeFetchMoviesUseCase());
+                    UseCaseFactory.makeFetchMoviesUseCase(context.get()));
         }
         return movieListFragmentPresenterInstance;
     }
 
-    public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> contextWeakReference) {
+    public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> context) {
         if (movieDetailFragmentPresenterInstance == null) {
-            movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp();
+            movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp(
+                    UseCaseFactory.makeUpdateMoviesUseCase(context.get())
+            );
         }
         return movieDetailFragmentPresenterInstance;
     }
