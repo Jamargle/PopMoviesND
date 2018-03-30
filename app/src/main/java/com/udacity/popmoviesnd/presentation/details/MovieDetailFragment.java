@@ -120,7 +120,14 @@ public final class MovieDetailFragment extends BaseFragment
                 : getString(R.string.mark_as_favorite));
     }
 
+    @Override
+    public void onUpdateMovieError() {
+        callback.onUpdateMovieError();
+    }
+
     interface Callback {
+
+        void onUpdateMovieError();
 
     }
 

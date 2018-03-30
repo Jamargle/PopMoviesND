@@ -23,6 +23,8 @@ public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailF
 
         void setFavoriteButtonText(boolean isFavorite);
 
+        void onUpdateMovieError();
+
     }
 
 }

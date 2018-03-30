@@ -35,9 +35,11 @@ public abstract class PresenterFactory {
         return movieListFragmentPresenterInstance;
     }
 
-    public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> contextWeakReference) {
+    public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> context) {
         if (movieDetailFragmentPresenterInstance == null) {
-            movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp();
+            movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp(
+                    UseCaseFactory.makeUpdateMoviesUseCase(context.get())
+            );
         }
         return movieDetailFragmentPresenterInstance;
     }

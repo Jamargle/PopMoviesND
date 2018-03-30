@@ -2,13 +2,21 @@ package com.udacity.popmoviesnd.presentation.details;
 
 import com.udacity.popmoviesnd.BuildConfig;
 import com.udacity.popmoviesnd.app.util.DateUtils;
+import com.udacity.popmoviesnd.domain.interactor.DefaultObserver;
+import com.udacity.popmoviesnd.domain.interactor.UseCase;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.BasePresenterImpl;
 
-public final class MovieDetailFragmentPresenterImp extends BasePresenterImpl<MovieDetailFragmentPresenter.MovieDetailFragmentView>
+public final class MovieDetailFragmentPresenterImp
+        extends BasePresenterImpl<MovieDetailFragmentPresenter.MovieDetailFragmentView>
         implements MovieDetailFragmentPresenter {
 
+    private final UseCase<Movie, Integer> updateMovieUseCase;
     private Movie movie;
+
+    public MovieDetailFragmentPresenterImp(final UseCase<Movie, Integer> updateMovieUseCase) {
+        this.updateMovieUseCase = updateMovieUseCase;
+    }
 
     @Override
     public void loadMovieDetails(final Movie movie) {
@@ -38,9 +46,28 @@ public final class MovieDetailFragmentPresenterImp extends BasePresenterImpl<Mov
     @Override
     public void onChangeFavoriteState() {
         movie.setFavorite(!movie.getFavorite());
-        if (getView() != null) {
-            getView().setFavoriteButtonText(movie.getFavorite());
-        }
+        updateMovieUseCase.execute(movie, new DefaultObserver<Integer>(getView()) {
+
+            @Override
+            public void processOnNext(final Integer moviesUpdated) {
+                if (getView() == null) {
+                    return;
+                }
+                if (moviesUpdated > 0) {
+                    getView().setFavoriteButtonText(movie.getFavorite());
+                } else {
+                    getView().onUpdateMovieError();
+                }
+            }
+
+            @Override
+            public void processOnError(final Throwable exception) {
+                if (getView() != null) {
+                    getView().onUpdateMovieError();
+                }
+            }
+
+        });
     }
 
     private String getReleaseYear(final String releaseDate) {

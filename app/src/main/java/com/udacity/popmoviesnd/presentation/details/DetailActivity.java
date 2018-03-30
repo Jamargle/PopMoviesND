@@ -3,6 +3,7 @@ package com.udacity.popmoviesnd.presentation.details;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
@@ -37,4 +38,8 @@ public final class DetailActivity extends AppCompatActivity
         ((MovieDetailFragment) fragment).setMovieToShow((Movie) getIntent().getParcelableExtra(MOVIE_TO_SHOW));
     }
 
+    @Override
+    public void onUpdateMovieError() {
+        Toast.makeText(this, getString(R.string.error_while_setting_movie_as_favorite), Toast.LENGTH_SHORT).show();
+    }
 }

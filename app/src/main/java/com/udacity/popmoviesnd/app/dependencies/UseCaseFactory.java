@@ -6,6 +6,7 @@ import com.udacity.popmoviesnd.data.JobExecutor;
 import com.udacity.popmoviesnd.domain.interactor.FetchMoviesUseCase;
 import com.udacity.popmoviesnd.domain.interactor.PostExecutionThread;
 import com.udacity.popmoviesnd.domain.interactor.ThreadExecutor;
+import com.udacity.popmoviesnd.domain.interactor.UpdateMoviesUseCase;
 import com.udacity.popmoviesnd.domain.interactor.UseCase;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.presentation.UiThread;
@@ -24,6 +25,14 @@ public abstract class UseCaseFactory {
         initThreadingInstances();
         return new FetchMoviesUseCase(
                 GatewayFactory.makeNetworkMovieGateway(),
+                GatewayFactory.makeLocalMovieGateway(context),
+                threadExecutorInstance,
+                postExecutionThreadInstance);
+    }
+
+    public static UseCase<Movie, Integer> makeUpdateMoviesUseCase(final Context context) {
+        initThreadingInstances();
+        return new UpdateMoviesUseCase(
                 GatewayFactory.makeLocalMovieGateway(context),
                 threadExecutorInstance,
                 postExecutionThreadInstance);
