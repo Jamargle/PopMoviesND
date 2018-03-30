@@ -46,7 +46,7 @@ public final class MovieDetailFragmentPresenterImp
     @Override
     public void onChangeFavoriteState() {
         movie.setFavorite(!movie.getFavorite());
-        updateMovieUseCase.execute(movie, new DefaultObserver<Integer>(getView()) {
+        updateMovieUseCase.execute(movie, new DefaultObserver<Integer>() {
 
             @Override
             public void processOnNext(final Integer moviesUpdated) {
