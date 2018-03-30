@@ -9,14 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.app.dependencies.PresenterFactory;
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BaseFragment;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,6 +126,16 @@ public final class MovieDetailFragment extends BaseFragment
     @Override
     public void onUpdateMovieError() {
         callback.onUpdateMovieError();
+    }
+
+    @Override
+    public void showTrailers(final List<Video> videos) {
+        Toast.makeText(getActivity(), "TODO There are a lot of trailers", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorFetchingTrailers() {
+        Toast.makeText(getActivity(), "TODO Error during download trailers", Toast.LENGTH_SHORT).show();
     }
 
     interface Callback {

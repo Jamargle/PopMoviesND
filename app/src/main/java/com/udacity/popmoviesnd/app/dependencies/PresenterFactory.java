@@ -38,7 +38,8 @@ public abstract class PresenterFactory {
     public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> context) {
         if (movieDetailFragmentPresenterInstance == null) {
             movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp(
-                    UseCaseFactory.makeUpdateMoviesUseCase(context.get())
+                    UseCaseFactory.makeUpdateMoviesUseCase(context.get()),
+                    UseCaseFactory.makeFetchMovieTrailersUseCase()
             );
         }
         return movieDetailFragmentPresenterInstance;
