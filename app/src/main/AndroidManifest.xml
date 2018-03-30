@@ -41,7 +41,7 @@
 
         <provider
             android:name=".data.local.MovieProvider"
-            android:authorities="com.josecognizant.popmovies.app"
+            android:authorities="com.udacity.popmoviesnd.app"
             android:exported="false"/>
 
     </application>
