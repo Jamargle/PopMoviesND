@@ -30,7 +30,7 @@ public abstract class PresenterFactory {
             movieListFragmentPresenterInstance = new MovieListFragmentPresenterImp(
                     getSharedPreferencesInstance(context),
                     getStringProviderInstance(context),
-                    UseCaseFactory.makeFetchMoviesUseCase());
+                    UseCaseFactory.makeFetchMoviesUseCase(context.get()));
         }
         return movieListFragmentPresenterInstance;
     }

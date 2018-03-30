@@ -1,5 +1,7 @@
 package com.udacity.popmoviesnd.app.dependencies;
 
+import android.content.Context;
+
 import com.udacity.popmoviesnd.data.JobExecutor;
 import com.udacity.popmoviesnd.domain.interactor.FetchMoviesUseCase;
 import com.udacity.popmoviesnd.domain.interactor.PostExecutionThread;
@@ -18,10 +20,11 @@ public abstract class UseCaseFactory {
     private UseCaseFactory() {
     }
 
-    public static UseCase<Integer, List<Movie>> makeFetchMoviesUseCase() {
+    public static UseCase<Integer, List<Movie>> makeFetchMoviesUseCase(final Context context) {
         initThreadingInstances();
         return new FetchMoviesUseCase(
                 GatewayFactory.makeNetworkMovieGateway(),
+                GatewayFactory.makeLocalMovieGateway(context),
                 threadExecutorInstance,
                 postExecutionThreadInstance);
     }

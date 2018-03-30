@@ -32,7 +32,12 @@ public final class LocalMovieGatewayImp implements LocalMovieGateway {
             @Override
             public void subscribe(final ObservableEmitter<List<Movie>> emitter) {
                 // TODO Add sorting criteria to retrieve only the expected movies
-                emitter.onNext(obtainMoviesFromDb());
+                final List<Movie> movies = obtainMoviesFromDb();
+                if (movies.isEmpty()) {
+                    emitter.onComplete();
+                } else {
+                    emitter.onNext(movies);
+                }
             }
         });
     }
