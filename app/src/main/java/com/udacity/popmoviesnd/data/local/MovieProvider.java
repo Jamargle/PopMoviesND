@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.udacity.popmoviesnd.domain.model.Sorting;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -111,11 +113,11 @@ public final class MovieProvider extends ContentProvider {
     }
 
     private Cursor getMoviesOrderedByPopular(String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return getMoviesWithOrder(projection, selection, selectionArgs, sortOrder, MovieContract.ORDER_BY_POPULAR);
+        return getMoviesWithOrder(projection, selection, selectionArgs, sortOrder, String.valueOf(Sorting.POPULAR));
     }
 
     private Cursor getMoviesOrderedByRating(String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return getMoviesWithOrder(projection, selection, selectionArgs, sortOrder, MovieContract.ORDER_BY_TOPRATED);
+        return getMoviesWithOrder(projection, selection, selectionArgs, sortOrder, String.valueOf(Sorting.TOP_RATED));
     }
 
     private Cursor getMoviesWithOrder(String[] projection, String selection, String[] selectionArgs, String sortOrder, String typeOfOrder) {
