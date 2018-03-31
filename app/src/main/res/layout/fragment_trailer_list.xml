@@ -20,7 +20,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:gravity="center"
-        android:text="@string/movie_list_is_empty"
+        android:text="@string/trailer_list_is_empty"
         android:visibility="gone"/>
 
     <ProgressBar

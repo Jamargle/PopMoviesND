@@ -32,4 +32,8 @@
     <string name="youtube_base_url">http://www.youtube.com/watch?v=%s1</string>
     <string name="trailer_icon_content_description">This is an icon for a trailer</string>
     <string name="reviews_title">Reviews</string>
+
+    <!-- Trailer and review screens -->
+    <string name="trailer_list_is_empty">There are no trailers available to show</string>
+    <string name="review_list_is_empty">There are no reviews available to show</string>
 </resources>
