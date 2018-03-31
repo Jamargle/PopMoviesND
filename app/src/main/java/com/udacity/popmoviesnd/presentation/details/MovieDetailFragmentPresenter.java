@@ -1,6 +1,7 @@
 package com.udacity.popmoviesnd.presentation.details;
 
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.MovieReview;
 import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BasePresenter;
 
@@ -31,6 +32,10 @@ public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailF
         void showTrailers(List<Video> videos);
 
         void showErrorFetchingTrailers();
+
+        void showReviews(List<MovieReview> reviews);
+
+        void showErrorFetchingReviews();
 
     }
 

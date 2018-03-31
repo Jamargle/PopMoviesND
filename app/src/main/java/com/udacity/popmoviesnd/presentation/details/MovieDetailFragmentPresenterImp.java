@@ -5,6 +5,7 @@ import com.udacity.popmoviesnd.app.util.DateUtils;
 import com.udacity.popmoviesnd.domain.interactor.DefaultObserver;
 import com.udacity.popmoviesnd.domain.interactor.UseCase;
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.MovieReview;
 import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BasePresenterImpl;
 
@@ -16,14 +17,17 @@ public final class MovieDetailFragmentPresenterImp
 
     private final UseCase<Movie, Integer> updateMovieUseCase;
     private final UseCase<Integer, List<Video>> fetchMovieTrailersUseCase;
+    private final UseCase<Integer, List<MovieReview>> fetchMovieReviewsUseCase;
     private Movie movie;
 
     public MovieDetailFragmentPresenterImp(
             final UseCase<Movie, Integer> updateMovieUseCase,
-            final UseCase<Integer, List<Video>> fetchMovieTrailersUseCase) {
+            final UseCase<Integer, List<Video>> fetchMovieTrailersUseCase,
+            final UseCase<Integer, List<MovieReview>> fetchMovieReviewsUseCase) {
 
         this.updateMovieUseCase = updateMovieUseCase;
         this.fetchMovieTrailersUseCase = fetchMovieTrailersUseCase;
+        this.fetchMovieReviewsUseCase = fetchMovieReviewsUseCase;
     }
 
     @Override
@@ -50,6 +54,7 @@ public final class MovieDetailFragmentPresenterImp
             view.setFavoriteButtonText(movie.getFavorite());
 
             loadMovieTrailers(movie.getMovieApiId());
+            loadMovieReviews(movie.getMovieApiId());
         }
     }
 
@@ -67,6 +72,26 @@ public final class MovieDetailFragmentPresenterImp
             public void processOnError(final Throwable exception) {
                 if (getView() != null) {
                     getView().showErrorFetchingTrailers();
+                }
+            }
+
+        });
+    }
+
+    private void loadMovieReviews(final long movieApiId) {
+        fetchMovieReviewsUseCase.execute((int) movieApiId, new DefaultObserver<List<MovieReview>>() {
+
+            @Override
+            public void processOnNext(final List<MovieReview> reviews) {
+                if (getView() != null) {
+                    getView().showReviews(reviews);
+                }
+            }
+
+            @Override
+            public void processOnError(final Throwable exception) {
+                if (getView() != null) {
+                    getView().showErrorFetchingReviews();
                 }
             }
 

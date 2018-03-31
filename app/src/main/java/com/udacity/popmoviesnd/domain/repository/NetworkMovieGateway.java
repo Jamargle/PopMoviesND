@@ -1,6 +1,7 @@
 package com.udacity.popmoviesnd.domain.repository;
 
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.MovieReview;
 import com.udacity.popmoviesnd.domain.model.Sorting;
 import com.udacity.popmoviesnd.domain.model.Video;
 
@@ -22,5 +23,7 @@ public interface NetworkMovieGateway {
     Observable<List<Movie>> obtainMovies(@Sorting int criteria);
 
     Observable<List<Video>> obtainTrailers(int movieId);
+
+    Observable<List<MovieReview>> obtainReviews(int movieId);
 
 }

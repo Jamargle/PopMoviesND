@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.app.dependencies.PresenterFactory;
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.MovieReview;
 import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BaseFragment;
 
@@ -29,7 +30,8 @@ import butterknife.OnClick;
 
 public final class MovieDetailFragment extends BaseFragment
         implements MovieDetailFragmentPresenter.MovieDetailFragmentView,
-        TrailerAdapter.OnTrailerClickListener {
+        TrailerAdapter.OnTrailerClickListener,
+        ReviewAdapter.OnReviewClickListener {
 
     @BindView(R.id.original_movie_title) TextView titleView;
     @BindView(R.id.movie_image) ImageView moviePoster;
@@ -39,6 +41,8 @@ public final class MovieDetailFragment extends BaseFragment
     @BindView(R.id.mark_as_favorite_button) Button favoriteButton;
     @BindView(R.id.trailer_title) TextView trailerTitleView;
     @BindView(R.id.trailer_list) RecyclerView trailersListView;
+    @BindView(R.id.review_title) TextView reviewTitleView;
+    @BindView(R.id.review_list) RecyclerView reviewsListView;
 
     private MovieDetailFragmentPresenter presenter;
     private Callback callback;
@@ -152,8 +156,31 @@ public final class MovieDetailFragment extends BaseFragment
     }
 
     @Override
+    public void showReviews(final List<MovieReview> reviews) {
+        reviewTitleView.setVisibility(View.VISIBLE);
+        reviewsListView.setVisibility(View.VISIBLE);
+        setUpReviewList(reviews);
+    }
+
+    private void setUpReviewList(final List<MovieReview> reviews) {
+        reviewsListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        reviewsListView.setHasFixedSize(true);
+        reviewsListView.setAdapter(new ReviewAdapter(reviews, this));
+    }
+
+    @Override
+    public void showErrorFetchingReviews() {
+        Toast.makeText(getActivity(), "TODO Error during download reviews", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onTrailerClicked(final Video trailer) {
         callback.onTrailerClicked(trailer);
+    }
+
+    @Override
+    public void onReviewClicked(final MovieReview review) {
+        callback.onReviewClicked(review);
     }
 
     interface Callback {
@@ -161,6 +188,8 @@ public final class MovieDetailFragment extends BaseFragment
         void onUpdateMovieError();
 
         void onTrailerClicked(Video trailer);
+
+        void onReviewClicked(MovieReview review);
 
     }
 

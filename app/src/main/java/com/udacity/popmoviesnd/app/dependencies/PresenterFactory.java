@@ -39,7 +39,8 @@ public abstract class PresenterFactory {
         if (movieDetailFragmentPresenterInstance == null) {
             movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp(
                     UseCaseFactory.makeUpdateMoviesUseCase(context.get()),
-                    UseCaseFactory.makeFetchMovieTrailersUseCase()
+                    UseCaseFactory.makeFetchMovieTrailersUseCase(),
+                    UseCaseFactory.makeFetchMovieReviewsUseCase()
             );
         }
         return movieDetailFragmentPresenterInstance;

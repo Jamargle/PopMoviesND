@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.MovieReview;
 import com.udacity.popmoviesnd.domain.model.Video;
 
 public final class DetailActivity extends AppCompatActivity
@@ -58,4 +59,10 @@ public final class DetailActivity extends AppCompatActivity
             Toast.makeText(this, R.string.need_app_to_open_link, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onReviewClicked(final MovieReview review) {
+        Toast.makeText(this, "review clicked", Toast.LENGTH_SHORT).show();
+    }
+
 }
