@@ -142,6 +142,7 @@ public final class MovieDetailFragment extends BaseFragment
 
     private void setUpTrailerList(final List<Video> videos) {
         trailersListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        trailersListView.setHasFixedSize(true);
         trailersListView.setAdapter(new TrailerAdapter(videos, this));
     }
 
