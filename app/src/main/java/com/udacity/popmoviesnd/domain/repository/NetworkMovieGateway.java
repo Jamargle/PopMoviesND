@@ -2,6 +2,7 @@ package com.udacity.popmoviesnd.domain.repository;
 
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.domain.model.Sorting;
+import com.udacity.popmoviesnd.domain.model.Video;
 
 import java.util.List;
 
@@ -19,5 +20,7 @@ public interface NetworkMovieGateway {
      * @return Observable with the List of Movies
      */
     Observable<List<Movie>> obtainMovies(@Sorting int criteria);
+
+    Observable<List<Video>> obtainTrailers(int movieId);
 
 }

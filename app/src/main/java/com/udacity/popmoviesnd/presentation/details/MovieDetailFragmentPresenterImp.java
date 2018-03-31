@@ -5,17 +5,25 @@ import com.udacity.popmoviesnd.app.util.DateUtils;
 import com.udacity.popmoviesnd.domain.interactor.DefaultObserver;
 import com.udacity.popmoviesnd.domain.interactor.UseCase;
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BasePresenterImpl;
+
+import java.util.List;
 
 public final class MovieDetailFragmentPresenterImp
         extends BasePresenterImpl<MovieDetailFragmentPresenter.MovieDetailFragmentView>
         implements MovieDetailFragmentPresenter {
 
     private final UseCase<Movie, Integer> updateMovieUseCase;
+    private final UseCase<Integer, List<Video>> fetchMovieTrailersUseCase;
     private Movie movie;
 
-    public MovieDetailFragmentPresenterImp(final UseCase<Movie, Integer> updateMovieUseCase) {
+    public MovieDetailFragmentPresenterImp(
+            final UseCase<Movie, Integer> updateMovieUseCase,
+            final UseCase<Integer, List<Video>> fetchMovieTrailersUseCase) {
+
         this.updateMovieUseCase = updateMovieUseCase;
+        this.fetchMovieTrailersUseCase = fetchMovieTrailersUseCase;
     }
 
     @Override
@@ -40,7 +48,29 @@ public final class MovieDetailFragmentPresenterImp
                 }
             }
             view.setFavoriteButtonText(movie.getFavorite());
+
+            loadMovieTrailers(movie.getMovieApiId());
         }
+    }
+
+    private void loadMovieTrailers(final long movieApiId) {
+        fetchMovieTrailersUseCase.execute((int) movieApiId, new DefaultObserver<List<Video>>() {
+
+            @Override
+            public void processOnNext(final List<Video> videos) {
+                if (getView() != null) {
+                    getView().showTrailers(videos);
+                }
+            }
+
+            @Override
+            public void processOnError(final Throwable exception) {
+                if (getView() != null) {
+                    getView().showErrorFetchingTrailers();
+                }
+            }
+
+        });
     }
 
     @Override

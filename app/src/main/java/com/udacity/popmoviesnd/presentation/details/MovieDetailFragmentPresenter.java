@@ -1,7 +1,10 @@
 package com.udacity.popmoviesnd.presentation.details;
 
 import com.udacity.popmoviesnd.domain.model.Movie;
+import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BasePresenter;
+
+import java.util.List;
 
 public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailFragmentPresenter.MovieDetailFragmentView> {
 
@@ -24,6 +27,10 @@ public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailF
         void setFavoriteButtonText(boolean isFavorite);
 
         void onUpdateMovieError();
+
+        void showTrailers(List<Video> videos);
+
+        void showErrorFetchingTrailers();
 
     }
 

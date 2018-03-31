@@ -3,7 +3,9 @@ package com.udacity.popmoviesnd.data.network;
 import com.udacity.popmoviesnd.BuildConfig;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.domain.model.MoviePage;
+import com.udacity.popmoviesnd.domain.model.MovieVideos;
 import com.udacity.popmoviesnd.domain.model.Sorting;
+import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.domain.repository.NetworkMovieGateway;
 
 import java.io.IOException;
@@ -29,7 +31,7 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
     public Observable<List<Movie>> obtainMovies(@Sorting final int criteria) {
         return Observable.create(new ObservableOnSubscribe<List<Movie>>() {
             @Override
-            public void subscribe(final ObservableEmitter<List<Movie>> emitter) throws Exception {
+            public void subscribe(final ObservableEmitter<List<Movie>> emitter) {
                 movies.clear();
                 if (Sorting.SHOW_ALL == criteria || Sorting.POPULAR == criteria) {
                     final Call<MoviePage> call = apiService.getListOfPopularMovies(BuildConfig.MOVIES_API_KEY);
@@ -42,6 +44,20 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
                 }
 
                 emitter.onNext(movies);
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Video>> obtainTrailers(final int movieId) {
+        return Observable.create(new ObservableOnSubscribe<List<Video>>() {
+            @Override
+            public void subscribe(final ObservableEmitter<List<Video>> emitter) {
+                final Call<MovieVideos> call = apiService.getListOfVideos(
+                        movieId,
+                        BuildConfig.MOVIES_API_KEY);
+
+                emitter.onNext(fetchMovieTrailers(call));
             }
         });
     }
@@ -62,6 +78,19 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Video> fetchMovieTrailers(final Call<MovieVideos> call) {
+        final List<Video> trailers = new ArrayList<>();
+        try {
+            final MovieVideos page = call.execute().body();
+            if (page != null && page.getResults() != null) {
+                trailers.addAll(page.getResults());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return trailers;
     }
 
 }
