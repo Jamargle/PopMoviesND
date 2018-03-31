@@ -18,5 +18,6 @@
 
     <!-- Text sizes -->
     <dimen name="movie_details_title">40sp</dimen>
+    <dimen name="title_normal">16sp</dimen>
 
 </resources>
