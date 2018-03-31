@@ -3,42 +3,36 @@ package com.udacity.popmoviesnd.presentation.details;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.popmoviesnd.R;
 import com.udacity.popmoviesnd.app.dependencies.PresenterFactory;
 import com.udacity.popmoviesnd.domain.model.Movie;
-import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BaseFragment;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public final class MovieDetailFragment extends BaseFragment
-        implements MovieDetailFragmentPresenter.MovieDetailFragmentView,
-        TrailerAdapter.OnTrailerClickListener {
+        implements MovieDetailFragmentPresenter.MovieDetailFragmentView {
 
     @BindView(R.id.original_movie_title) TextView titleView;
     @BindView(R.id.movie_image) ImageView moviePoster;
     @BindView(R.id.overview) TextView overviewView;
     @BindView(R.id.release_year) TextView releaseYearView;
     @BindView(R.id.vote_average) TextView voteAverageView;
-    @BindView(R.id.mark_as_favorite_button) Button favoriteButton;
-    @BindView(R.id.trailer_title) TextView trailerTitleView;
-    @BindView(R.id.trailer_list) RecyclerView trailersListView;
+    @BindView(R.id.mark_as_favorite_button) AppCompatButton favoriteButton;
+    @BindView(R.id.trailer_button) TextView trailerTitleView;
+    @BindView(R.id.review_button) TextView reviewTitleView;
 
     private MovieDetailFragmentPresenter presenter;
     private Callback callback;
@@ -86,8 +80,18 @@ public final class MovieDetailFragment extends BaseFragment
     }
 
     @OnClick(R.id.mark_as_favorite_button)
-    void changeFavoriteState() {
+    protected void changeFavoriteState() {
         presenter.onChangeFavoriteState();
+    }
+
+    @OnClick(R.id.trailer_button)
+    protected void onTrailerTitleClicked() {
+        presenter.onTrailerTitleClicked();
+    }
+
+    @OnClick(R.id.review_button)
+    protected void onReviewTitleClicked() {
+        presenter.onReviewTitleClicked();
     }
 
     @Override
@@ -134,33 +138,22 @@ public final class MovieDetailFragment extends BaseFragment
     }
 
     @Override
-    public void showTrailers(final List<Video> videos) {
-        trailerTitleView.setVisibility(View.VISIBLE);
-        trailersListView.setVisibility(View.VISIBLE);
-        setUpTrailerList(videos);
-    }
-
-    private void setUpTrailerList(final List<Video> videos) {
-        trailersListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        trailersListView.setHasFixedSize(true);
-        trailersListView.setAdapter(new TrailerAdapter(videos, this));
+    public void proceedToShowTrailers(final Movie movie) {
+        callback.proceedToShowTrailers(movie);
     }
 
     @Override
-    public void showErrorFetchingTrailers() {
-        Toast.makeText(getActivity(), "TODO Error during download trailers", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onTrailerClicked(final Video trailer) {
-        callback.onTrailerClicked(trailer);
+    public void proceedToShowReviews(final Movie movie) {
+        callback.proceedToShowReviews(movie);
     }
 
     interface Callback {
 
         void onUpdateMovieError();
 
-        void onTrailerClicked(Video trailer);
+        void proceedToShowTrailers(Movie movie);
+
+        void proceedToShowReviews(Movie movie);
 
     }
 

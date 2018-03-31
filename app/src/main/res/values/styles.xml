@@ -17,5 +17,10 @@
         <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
     </style>
 
+    <style name="TitleSmall" parent="@style/Base.TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/title_small</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+    </style>
 
 </resources>

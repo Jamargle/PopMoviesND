@@ -1,16 +1,17 @@
 package com.udacity.popmoviesnd.presentation.details;
 
 import com.udacity.popmoviesnd.domain.model.Movie;
-import com.udacity.popmoviesnd.domain.model.Video;
 import com.udacity.popmoviesnd.presentation.BasePresenter;
-
-import java.util.List;
 
 public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailFragmentPresenter.MovieDetailFragmentView> {
 
     void loadMovieDetails(Movie movie);
 
     void onChangeFavoriteState();
+
+    void onTrailerTitleClicked();
+
+    void onReviewTitleClicked();
 
     interface MovieDetailFragmentView extends BasePresenter.BaseView {
 
@@ -28,9 +29,9 @@ public interface MovieDetailFragmentPresenter extends BasePresenter<MovieDetailF
 
         void onUpdateMovieError();
 
-        void showTrailers(List<Video> videos);
+        void proceedToShowTrailers(Movie movie);
 
-        void showErrorFetchingTrailers();
+        void proceedToShowReviews(Movie movie);
 
     }
 

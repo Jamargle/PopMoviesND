@@ -1,6 +1,9 @@
 package com.udacity.popmoviesnd.presentation.details;
 
 import com.udacity.popmoviesnd.BuildConfig;
+import com.udacity.popmoviesnd.domain.interactor.FetchMovieReviewsUseCase;
+import com.udacity.popmoviesnd.domain.interactor.FetchMovieTrailersUseCase;
+import com.udacity.popmoviesnd.domain.interactor.UpdateMoviesUseCase;
 import com.udacity.popmoviesnd.domain.model.Movie;
 
 import org.junit.After;
@@ -20,7 +23,10 @@ public class MovieDetailFragmentPresenterTest {
     @Before
     public void setUp() {
         view = mock(MovieDetailFragmentPresenter.MovieDetailFragmentView.class);
-        presenter = new MovieDetailFragmentPresenterImp();
+        presenter = new MovieDetailFragmentPresenterImp(
+                mock(UpdateMoviesUseCase.class),
+                mock(FetchMovieTrailersUseCase.class),
+                mock(FetchMovieReviewsUseCase.class));
         presenter.attachView(view);
     }
 

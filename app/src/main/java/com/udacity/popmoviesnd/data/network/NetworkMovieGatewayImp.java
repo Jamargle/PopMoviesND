@@ -3,6 +3,8 @@ package com.udacity.popmoviesnd.data.network;
 import com.udacity.popmoviesnd.BuildConfig;
 import com.udacity.popmoviesnd.domain.model.Movie;
 import com.udacity.popmoviesnd.domain.model.MoviePage;
+import com.udacity.popmoviesnd.domain.model.MovieReview;
+import com.udacity.popmoviesnd.domain.model.MovieReviewPage;
 import com.udacity.popmoviesnd.domain.model.MovieVideos;
 import com.udacity.popmoviesnd.domain.model.Sorting;
 import com.udacity.popmoviesnd.domain.model.Video;
@@ -62,6 +64,20 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
         });
     }
 
+    @Override
+    public Observable<List<MovieReview>> obtainReviews(final int movieId) {
+        return Observable.create(new ObservableOnSubscribe<List<MovieReview>>() {
+            @Override
+            public void subscribe(final ObservableEmitter<List<MovieReview>> emitter) {
+                final Call<MovieReviewPage> call = apiService.getListOfReviews(
+                        movieId,
+                        BuildConfig.MOVIES_API_KEY);
+
+                emitter.onNext(fetchMovieReviews(call));
+            }
+        });
+    }
+
     private void addMoviesToList(
             final Call<MoviePage> call,
             @Sorting final int wayToOrder) {
@@ -91,6 +107,19 @@ public final class NetworkMovieGatewayImp implements NetworkMovieGateway {
             e.printStackTrace();
         }
         return trailers;
+    }
+
+    private List<MovieReview> fetchMovieReviews(final Call<MovieReviewPage> call) {
+        final List<MovieReview> reviews = new ArrayList<>();
+        try {
+            final MovieReviewPage page = call.execute().body();
+            if (page != null) {
+                reviews.addAll(page.getReviews());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return reviews;
     }
 
 }

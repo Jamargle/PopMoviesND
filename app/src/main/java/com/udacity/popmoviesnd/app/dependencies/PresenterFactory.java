@@ -8,6 +8,10 @@ import com.udacity.popmoviesnd.presentation.details.MovieDetailFragmentPresenter
 import com.udacity.popmoviesnd.presentation.details.MovieDetailFragmentPresenterImp;
 import com.udacity.popmoviesnd.presentation.movies.MovieListFragmentPresenter;
 import com.udacity.popmoviesnd.presentation.movies.MovieListFragmentPresenterImp;
+import com.udacity.popmoviesnd.presentation.review.ReviewListFragmentPresenter;
+import com.udacity.popmoviesnd.presentation.review.ReviewListFragmentPresenterImp;
+import com.udacity.popmoviesnd.presentation.trailer.TrailerListFragmentPresenter;
+import com.udacity.popmoviesnd.presentation.trailer.TrailerListFragmentPresenterImp;
 
 import java.lang.ref.WeakReference;
 
@@ -20,6 +24,8 @@ public abstract class PresenterFactory {
     private static StringProvider stringProvider;
     private static MovieListFragmentPresenter movieListFragmentPresenterInstance;
     private static MovieDetailFragmentPresenter movieDetailFragmentPresenterInstance;
+    private static TrailerListFragmentPresenter trailerListFragmentPresenterInstance;
+    private static ReviewListFragmentPresenter reviewListFragmentPresenterInstance;
 
     private PresenterFactory() {
 
@@ -38,11 +44,28 @@ public abstract class PresenterFactory {
     public static MovieDetailFragmentPresenter makeMovieDetailFragmentPresenter(final WeakReference<Context> context) {
         if (movieDetailFragmentPresenterInstance == null) {
             movieDetailFragmentPresenterInstance = new MovieDetailFragmentPresenterImp(
-                    UseCaseFactory.makeUpdateMoviesUseCase(context.get()),
-                    UseCaseFactory.makeFetchMovieTrailersUseCase()
+                    UseCaseFactory.makeUpdateMoviesUseCase(context.get())
             );
         }
         return movieDetailFragmentPresenterInstance;
+    }
+
+    public static TrailerListFragmentPresenter makeTrailerListFragmentPresenter() {
+        if (trailerListFragmentPresenterInstance == null) {
+            trailerListFragmentPresenterInstance = new TrailerListFragmentPresenterImp(
+                    UseCaseFactory.makeFetchMovieTrailersUseCase()
+            );
+        }
+        return trailerListFragmentPresenterInstance;
+    }
+
+    public static ReviewListFragmentPresenter makeReviewListFragmentPresenter() {
+        if (reviewListFragmentPresenterInstance == null) {
+            reviewListFragmentPresenterInstance = new ReviewListFragmentPresenterImp(
+                    UseCaseFactory.makeFetchMovieReviewsUseCase()
+            );
+        }
+        return reviewListFragmentPresenterInstance;
     }
 
     private static SharedPreferencesHandler getSharedPreferencesInstance(final WeakReference<Context> context) {

@@ -32,6 +32,24 @@
         </activity>
 
         <activity
+            android:name=".presentation.trailer.TrailerActivity"
+            android:label="@string/trailer_activity_title"
+            android:parentActivityName=".presentation.details.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.details.DetailActivity"/>
+        </activity>
+
+        <activity
+            android:name=".presentation.review.ReviewActivity"
+            android:label="@string/review_activity_title"
+            android:parentActivityName=".presentation.details.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.details.DetailActivity"/>
+        </activity>
+
+        <activity
             android:name=".presentation.settings.SettingsActivity"
             android:parentActivityName=".presentation.movies.MoviesActivity">
             <meta-data
