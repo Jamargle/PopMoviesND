@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PopMoviesND</string>
+    <string name="trailer_activity_title">Trailers</string>
+    <string name="review_activity_title">Reviews</string>
 
     <!-- Movies list activity -->
     <string name="movie_list_image">This is a poster of a movie</string>
