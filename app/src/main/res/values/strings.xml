@@ -25,4 +25,8 @@
     <string name="mark_as_favorite">Mark as favorite</string>
     <string name="unmark_for_non_favorite">Unmark for non favorite</string>
     <string name="error_while_setting_movie_as_favorite">ERROR while marking the movie as favorite</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="need_app_to_open_link">You need an app to open the video link</string>
+    <string name="youtube_base_url">http://www.youtube.com/watch?v=%s1</string>
+    <string name="trailer_icon_content_description">This is an icon for a trailer</string>
 </resources>
