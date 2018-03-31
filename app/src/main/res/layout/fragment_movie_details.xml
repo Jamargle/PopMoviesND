@@ -103,6 +103,7 @@
                 style="@style/DetailsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_big"
                 android:text="@string/reviews_title"
                 android:visibility="gone"
                 tools:visibility="visible"/>

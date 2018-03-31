@@ -62,7 +62,8 @@ public final class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Revi
 
     public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.review_name) TextView name_text;
+        @BindView(R.id.review_author) TextView author;
+        @BindView(R.id.review_content) TextView content;
         private MovieReview review;
 
         ReviewViewHolder(final View view) {
@@ -72,7 +73,8 @@ public final class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Revi
 
         void onBind(final MovieReview review) {
             this.review = review;
-            name_text.setText(review.getContent());
+            author.setText(review.getAuthor());
+            content.setText(review.getContent());
         }
 
         @OnClick(R.id.review_view)
