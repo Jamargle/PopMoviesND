@@ -117,16 +117,6 @@ public final class MovieListFragment extends BaseFragment
     }
 
     @Override
-    public void showLoadMoviesError() {
-        // TODO Finish showLoadMoviesError implementation
-    }
-
-    @Override
-    public void hideMoviesError() {
-        // TODO Finish hideMoviesError implementation
-    }
-
-    @Override
     public void updateMoviesToShow(final List<Movie> movies) {
         if (movieRecyclerView.getVisibility() == View.GONE) {
             movieRecyclerView.setVisibility(View.VISIBLE);

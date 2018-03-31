@@ -1,4 +1,4 @@
-package com.udacity.popmoviesnd.presentation.details;
+package com.udacity.popmoviesnd.presentation.review;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +52,12 @@ public final class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Revi
     @Override
     public int getItemCount() {
         return reviews.size();
+    }
+
+    public void setTrailersToShow(final List<MovieReview> reviews) {
+        this.reviews.clear();
+        this.reviews.addAll(reviews);
+        notifyDataSetChanged();
     }
 
     public interface OnReviewClickListener {

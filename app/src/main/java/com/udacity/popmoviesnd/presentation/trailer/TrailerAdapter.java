@@ -1,4 +1,4 @@
-package com.udacity.popmoviesnd.presentation.details;
+package com.udacity.popmoviesnd.presentation.trailer;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +52,12 @@ public final class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.Tr
     @Override
     public int getItemCount() {
         return trailers.size();
+    }
+
+    public void setTrailersToShow(final List<Video> videos) {
+        trailers.clear();
+        trailers.addAll(videos);
+        notifyDataSetChanged();
     }
 
     public interface OnTrailerClickListener {
