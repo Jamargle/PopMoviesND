@@ -3,10 +3,10 @@ package com.udacity.popmoviesnd.presentation.details;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,9 +30,9 @@ public final class MovieDetailFragment extends BaseFragment
     @BindView(R.id.overview) TextView overviewView;
     @BindView(R.id.release_year) TextView releaseYearView;
     @BindView(R.id.vote_average) TextView voteAverageView;
-    @BindView(R.id.mark_as_favorite_button) Button favoriteButton;
-    @BindView(R.id.trailer_title) TextView trailerTitleView;
-    @BindView(R.id.review_title) TextView reviewTitleView;
+    @BindView(R.id.mark_as_favorite_button) AppCompatButton favoriteButton;
+    @BindView(R.id.trailer_button) TextView trailerTitleView;
+    @BindView(R.id.review_button) TextView reviewTitleView;
 
     private MovieDetailFragmentPresenter presenter;
     private Callback callback;
@@ -84,12 +84,12 @@ public final class MovieDetailFragment extends BaseFragment
         presenter.onChangeFavoriteState();
     }
 
-    @OnClick(R.id.trailer_title)
+    @OnClick(R.id.trailer_button)
     protected void onTrailerTitleClicked() {
         presenter.onTrailerTitleClicked();
     }
 
-    @OnClick(R.id.review_title)
+    @OnClick(R.id.review_button)
     protected void onReviewTitleClicked() {
         presenter.onReviewTitleClicked();
     }
