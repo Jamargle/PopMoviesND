@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.udacity.popmoviesnd"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.udacity.popmoviesnd">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -32,12 +32,35 @@
         </activity>
 
         <activity
+            android:name=".presentation.trailer.TrailerActivity"
+            android:label="@string/trailer_activity_title"
+            android:parentActivityName=".presentation.details.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.details.DetailActivity"/>
+        </activity>
+
+        <activity
+            android:name=".presentation.review.ReviewActivity"
+            android:label="@string/review_activity_title"
+            android:parentActivityName=".presentation.details.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.details.DetailActivity"/>
+        </activity>
+
+        <activity
             android:name=".presentation.settings.SettingsActivity"
             android:parentActivityName=".presentation.movies.MoviesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.movies.MoviesActivity"/>
         </activity>
+
+        <provider
+            android:name=".data.local.MovieProvider"
+            android:authorities="com.udacity.popmoviesnd.app"
+            android:exported="false"/>
 
     </application>
 

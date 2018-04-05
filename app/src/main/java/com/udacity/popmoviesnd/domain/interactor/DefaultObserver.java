@@ -1,7 +1,5 @@
 package com.udacity.popmoviesnd.domain.interactor;
 
-import com.udacity.popmoviesnd.presentation.BasePresenter;
-
 import io.reactivex.observers.DisposableObserver;
 
 /**
@@ -9,33 +7,21 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class DefaultObserver<T> extends DisposableObserver<T> {
 
-    private BasePresenter.BaseView view;
-
-    public DefaultObserver(final BasePresenter.BaseView view) {
-        this.view = view;
-    }
-
     @Override
     public void onNext(final T t) {
-        if (view != null) {
-            onAny();
-            processOnNext(t);
-        }
+        onAny();
+        processOnNext(t);
     }
 
     @Override
     public void onComplete() {
-        if (view != null) {
-            processOnComplete();
-        }
+        processOnComplete();
     }
 
     @Override
     public void onError(final Throwable exception) {
-        if (view != null) {
-            onAny();
-            processOnError(exception);
-        }
+        onAny();
+        processOnError(exception);
     }
 
     public void onAny() {

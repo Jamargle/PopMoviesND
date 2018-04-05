@@ -17,10 +17,6 @@ public interface MovieListFragmentPresenter extends BasePresenter<MovieListFragm
 
         void hideLoading();
 
-        void showLoadMoviesError();
-
-        void hideMoviesError();
-
         void updateMoviesToShow(List<Movie> movies);
 
         void showNoMoviesToShowScreen();

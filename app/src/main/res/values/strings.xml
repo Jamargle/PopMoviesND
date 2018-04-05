@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PopMoviesND</string>
+    <string name="trailer_activity_title">Trailers</string>
+    <string name="review_activity_title">Reviews</string>
 
     <!-- Movies list activity -->
     <string name="movie_list_image">This is a poster of a movie</string>
@@ -14,10 +16,24 @@
     <string name="title_pick_sorter_way">Pick a way to sort</string>
     <string name="label_sort_by_popular">Most popular</string>
     <string name="label_sort_by_rating">Top rated</string>
+    <string name="label_sort_by_favorite">Favorites</string>
     <string name="pref_sorting_model_key" translatable="false">sorting_model_key</string>
     <string name="pref_sort_by_popular" translatable="false">popular_movies</string>
     <string name="pref_sort_by_rating" translatable="false">top_rated_movies</string>
+    <string name="pref_sort_by_favorite" translatable="false">favorite_movies</string>
 
     <!-- Detail activity -->
     <string name="poster_content_description">Poster of the movie</string>
+    <string name="mark_as_favorite">Mark as favorite</string>
+    <string name="unmark_for_non_favorite">Unmark for non favorite</string>
+    <string name="error_while_setting_movie_as_favorite">ERROR while marking the movie as favorite</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="need_app_to_open_link">You need an app to open the video link</string>
+    <string name="youtube_base_url">http://www.youtube.com/watch?v=%s1</string>
+    <string name="trailer_icon_content_description">This is an icon for a trailer</string>
+    <string name="reviews_title">Reviews</string>
+
+    <!-- Trailer and review screens -->
+    <string name="trailer_list_is_empty">There are no trailers available to show</string>
+    <string name="review_list_is_empty">There are no reviews available to show</string>
 </resources>

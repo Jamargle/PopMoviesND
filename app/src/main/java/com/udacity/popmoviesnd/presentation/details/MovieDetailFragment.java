@@ -3,6 +3,7 @@ package com.udacity.popmoviesnd.presentation.details;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public final class MovieDetailFragment extends BaseFragment
         implements MovieDetailFragmentPresenter.MovieDetailFragmentView {
@@ -28,6 +30,9 @@ public final class MovieDetailFragment extends BaseFragment
     @BindView(R.id.overview) TextView overviewView;
     @BindView(R.id.release_year) TextView releaseYearView;
     @BindView(R.id.vote_average) TextView voteAverageView;
+    @BindView(R.id.mark_as_favorite_button) AppCompatButton favoriteButton;
+    @BindView(R.id.trailer_button) TextView trailerTitleView;
+    @BindView(R.id.review_button) TextView reviewTitleView;
 
     private MovieDetailFragmentPresenter presenter;
     private Callback callback;
@@ -74,6 +79,21 @@ public final class MovieDetailFragment extends BaseFragment
         presenter.loadMovieDetails(movie);
     }
 
+    @OnClick(R.id.mark_as_favorite_button)
+    protected void changeFavoriteState() {
+        presenter.onChangeFavoriteState();
+    }
+
+    @OnClick(R.id.trailer_button)
+    protected void onTrailerTitleClicked() {
+        presenter.onTrailerTitleClicked();
+    }
+
+    @OnClick(R.id.review_button)
+    protected void onReviewTitleClicked() {
+        presenter.onReviewTitleClicked();
+    }
+
     @Override
     public void setTitle(final String originalTitle) {
         titleView.setText(originalTitle);
@@ -105,7 +125,35 @@ public final class MovieDetailFragment extends BaseFragment
         }
     }
 
+    @Override
+    public void setFavoriteButtonText(final boolean isFavorite) {
+        favoriteButton.setText(isFavorite
+                ? getString(R.string.unmark_for_non_favorite)
+                : getString(R.string.mark_as_favorite));
+    }
+
+    @Override
+    public void onUpdateMovieError() {
+        callback.onUpdateMovieError();
+    }
+
+    @Override
+    public void proceedToShowTrailers(final Movie movie) {
+        callback.proceedToShowTrailers(movie);
+    }
+
+    @Override
+    public void proceedToShowReviews(final Movie movie) {
+        callback.proceedToShowReviews(movie);
+    }
+
     interface Callback {
+
+        void onUpdateMovieError();
+
+        void proceedToShowTrailers(Movie movie);
+
+        void proceedToShowReviews(Movie movie);
 
     }
 

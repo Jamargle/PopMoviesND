@@ -34,11 +34,13 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
             getView().showLoading();
         }
 
-        fetchMoviesUseCase.execute(getMovieOrderSetting(), new DefaultObserver<List<Movie>>(getView()) {
+        fetchMoviesUseCase.execute(getMovieOrderSetting(), new DefaultObserver<List<Movie>>() {
 
             @Override
             public void processOnNext(final List<Movie> movies) {
-                super.processOnNext(movies);
+                if (getView() == null) {
+                    return;
+                }
                 if (movies.isEmpty()) {
                     getView().showNoMoviesToShowScreen();
                 } else {
@@ -48,8 +50,9 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
 
             @Override
             public void onAny() {
-                super.onAny();
-                getView().hideLoading();
+                if (getView() != null) {
+                    getView().hideLoading();
+                }
             }
 
         });
@@ -71,6 +74,8 @@ public final class MovieListFragmentPresenterImp extends BasePresenterImpl<Movie
             return Sorting.POPULAR;
         } else if (wayToOrder.equals(stringProvider.getString(R.string.pref_sort_by_rating))) {
             return Sorting.TOP_RATED;
+        } else if (wayToOrder.equals(stringProvider.getString(R.string.pref_sort_by_favorite))) {
+            return Sorting.FAVORITES;
         } else {
             return Sorting.POPULAR;
         }
